@@ -1,0 +1,291 @@
+;Ascalon IDs
+Global $AscalonFoothills_Map = 103
+Global $AscalonFoothills_Outpost = 134         ;Yak's Bend to have a 6 man party
+Global $DiessaLowlands_Map = 13
+Global $DiessaLowlands_Outpost = 32            ;Nolani's Academy
+Global $DragonsGullet_Map = 105
+Global $DragonsGullet_Outpost = 36             ;Grendich Courthouse
+Global $EasternFrontier_Map = 107
+Global $EasternFrontier_Outpost = 30           ;Ruins of Surmia
+Global $FlameTempleCorridor_Map = 106
+Global $FlameTempleCorridor_Outpost = 36       ;Grendich Courthouse
+Global $OldAscalon_Map = 33
+Global $OldAscalon_Outpost = 81                ;Ascalon City
+Global $PockmarkFlats_Map = 104
+Global $PockmarkFlats_Outpost = 131            ;Serenity Temple
+Global $RegentValley_Map = 101
+Global $RegentValley_Outpost = 29              ;Fort Ranik
+Global $TheBreach_Map = 102
+Global $TheBreach_Outpost = 40                 ;Piken Square
+;NorthernShiverpeaks IDs
+Global $AnvilRock_Map = 89
+Global $AnvilRock_Outpost = 132                ;Ice Tooth Cave
+Global $DeldrimorBowl_Map = 100
+Global $DeldrimorBowl_Outpost = 133            ;Beacons Perch
+Global $GriffonsMouth_Map = 27
+Global $GriffonsMouth_Outpost = 133            ;Beacons Perch
+Global $IronHorseMine_Map = 88
+Global $IronHorseMine_Outpost = 134            ;Yak's Bend
+Global $TravelersVale_Map = 99
+Global $TravelersVale_Outpost = 134            ;Yak's Bend
+;Maguuma IDs
+Global $DryTop_Map
+Global $DryTop_Outpost
+Global $EttinsBack_Map
+Global $EttinsBack_Outpost
+Global $MamnoonLagoon_Map
+Global $MamnoonLagoon_Outpost
+Global $ReedBog_Map
+Global $ReedBog_Outpost
+Global $SageLands_Map = 41
+Global $SageLands_Outpost = 140                ;Druid Overlook
+Global $Silverwood_Map = 43
+Global $Silverwood_Outpost = 142               ;Quarrel Falls
+Global $TangleRoot_Map = 48
+Global $TangleRoot_Outpost = 49                ;Henge of Denravi
+Global $TheFalls_Map
+Global $TheFalls_Outpost
+;CrystalDesert IDs
+Global $DivinersAscent_Map
+Global $DivinersAscent_Outpost
+Global $ProphetsPath_Map = 113
+Global $ProphetsPath_Outpost = 152
+Global $SaltFlats_Map
+Global $SaltFlats_Outpost
+Global $SkywardReach_Map = 115
+Global $SkywardReach_Outpost = 38             ;Augury Rock
+Global $TheAridSea_Map = 112
+Global $TheAridSea_Outpost = 38               ;Augury Rock
+Global $TheScar_Map
+Global $TheScar_Outpost
+Global $VultureDrifts_Map
+Global $VultureDrifts_Outpost
+;Kryta IDs
+Global $CursedLands_Map
+Global $CursedLands_Outpost
+Global $KessexPeak_Map
+Global $KessexPeak_Outpost
+Global $MajestysRest_Map
+Global $MajestysRest_Outpost
+Global $NeboTerrace_Map
+Global $NeboTerrace_Outpost
+Global $NorthKrytaProvince_Map
+Global $NorthKrytaProvince_Outpost
+Global $ScoundrelsRise_Map
+Global $ScoundrelsRise_Outpost
+Global $StingrayStrand_Map = 63
+Global $StingrayStrand_Outpost = 19
+Global $TalmarkWilderness_Map
+Global $TalmarkWilderness_Outpost
+Global $TearsoftheFallen_Map
+Global $TearsoftheFallen_Outpost
+Global $TheBlackCurtain_Map
+Global $TheBlackCurtain_Outpost
+Global $TwinSerpentLakes_Map = 61
+Global $TwinSerpentLakes_Outpost = 73         ;Riverside Province
+Global $WatchtowerCoast_Map
+Global $WatchtowerCoast_Outpost
+;SouthernShiverpeaks IDs
+Global $DreadnoughtsDrift_Map
+Global $DreadnoughtsDrift_Outpost
+Global $FrozenForest_Map
+Global $FrozenForest_Outpost
+Global $GrenthsFootprint_Map
+Global $GrenthsFootprint_Outpost
+Global $IceFloe_Map
+Global $IceFloe_Outpost
+Global $Icedome_Map
+Global $Icedome_Outpost =2
+Global $LornarsPass_Map
+Global $LornarsPass_Outpost
+Global $MineralSprings_Map
+Global $MineralSprings_Outpost
+Global $SnakeDance_Map
+Global $SnakeDance_Outpost
+Global $SpearheadPeak_Map
+Global $SpearheadPeak_Outpost
+Global $TalusChute_Map = 26
+Global $TalusChute_Outpost = 20
+Global $TascasDemise_Map
+Global $TascasDemise_Outpost
+Global $WitmansFolly_Map = 95
+Global $WitmansFolly_Outpost = 20
+;RingOfFireIsland IDs
+Global $PerditionRock_Outpost = 35
+Global $PerditionRock_Map = 121
+;ShingJeaIsland IDs
+Global $HaijuLagoon_Map = 237
+Global $HaijuLagoon_Outpost = 213						;Zen DaiJun
+Global $JayaBluffs_Map = 196
+Global $JayaBluffs_Outpost = 250                 			;Seitung Harbor
+Global $KinyaProvince_Map = 236
+Global $KinyaProvince_Outpost = 251			         	;Ran Musu Garden
+Global $MinisterChosEstate_Map = 245
+Global $MinisterChosEstate_Outpost = 251
+Global $RanMusuGardens_OutPost =251
+Global $PanjiangPeninsula_Map = 235
+Global $PanjiangPeninsula_Outpost = 249          		;Tsumei Village
+Global $SaoshangTrail_Map = 313
+Global $SaoshangTrail_Outpost = 250             		 	;Seitung Harbor
+Global $SunquaVale_Map = 238
+Global $SunquaVale_Outpost = 242                 		;Shing Jea Monastery
+Global $ZenDaijun_Map = 246
+Global $ZenDaijun_Outpost = 250							;Seitung Harbor
+;KainengCity IDs
+Global $BukdekByway_Map = 240
+Global $BukdekByway_Outpost = 303
+Global $NahpuiQuarter_Map = 265
+Global $NahpuiQuarter_Outpost = 51
+Global $PongmeiValley_Map = 211
+Global $PongmeiValley_Outpost = 283
+Global $RaisuPalace_Map = 233
+Global $RaisuPalace_Outpost = 226
+Global $ShadowsPassage_Map = 232
+Global $ShadowsPassage_Outpost = 274
+Global $ShenzunTunnels_Map = 197
+Global $ShenzunTunnels_Outpost = 283
+Global $SunjiangDistrict_Map = 256
+Global $SunjiangDistrict_Outpost = 284
+Global $TahnnakiTemple_Map = 269
+Global $TahnnakiTemple_Outpost = 284
+Global $WajjunBazaar_Map = 239
+Global $WajjunBazaar_Outpost = 303
+Global $XaquangSkyway_Map = 31
+Global $XaquangSkyway_Outpost = 51              ;Senji's Corner
+;Echovald Forest IDs
+Global $Arborstone_Map = 244
+Global $Arborstone_Outpost = 272
+Global $DrazachThicket_Map = 195
+Global $DrazachThicket_Outpost = 222
+Global $Ferndale_Map = 210
+Global $Ferndale_Outpost = 77
+Global $MelandrusHope_Map = 201
+Global $MelandrusHope_Outpost = 390
+Global $MorostavTrail_Map = 205
+Global $MorostavTrail_Outpost = 298
+Global $MourningVeilFalls_Map = 209
+Global $MourningVeilFalls_Outpost = 230
+Global $TheEternalGrove_Map = 128
+Global $TheEternalGrove_Outpost = 130
+;TheJadeSea IDs
+Global $Archipelagos_Map = 198
+Global $Archipelagos_Outpost = 193
+Global $BoreasSeabed_Map = 247
+Global $BoreasSeabed_Outpost = 273
+Global $GyalaHatchery_Map = 144
+Global $GyalaHatchery_Outpost = 279
+Global $MaishangHills_Map = 199
+Global $MaishangHills_Outpost = 224
+Global $MountQinkai_Map = 200
+Global $MountQinkai_Outpost = 389
+Global $RheasCrater_Map = 202
+Global $RheasCrater_Outpost = 234
+Global $SilentSurf_Map = 203
+Global $SilentSurf_Outpost = 279
+Global $UnwakingWaters_Map = 227
+Global $UnwakingWaters_Outpost = 277
+;Istan IDs
+Global $CliffsOfDohjok_Map = 432
+Global $CliffsOfDohjok_Outpost = 492						;Blacktide Den
+Global $FahranurTheFirstCity_Map = 481
+Global $FahranurTheFirstCity_Outpost = 492			;Blacktide Den
+Global $IssnurIsles_Map = 486
+Global $IssnurIsles_Outpost = 487							;Beknur Harbor
+Global $LahtendaBog_Map = 484
+Global $LahtendaBog_Outpost = 492						;Blacktide Den
+Global $MehtaniKeys_Map = 488
+Global $MehtaniKeys_Outpost = 489						;Kodlonu Hamlet
+Global $PlainsofJarin_Map = 430
+Global $PlainsofJarin_Outpost = 449                  		;Kamadan
+Global $ZehlonReach_Map = 483
+Global $ZehlonReach_Outpost = 491                   	;Jokanur Diggins
+;Kourna IDs
+Global $ArkjokWard_Map = 380
+Global $ArkjokWard_Outpost = 381                    		;Yohlon Haven
+Global $BahdokCaverns_Map = 377
+Global $BahdokCaverns_Outpost = 427					;Moddok Crevice
+Global $BarbarousShore_Map = 375
+Global $BarbarousShore_Outpost = 376 					;Camp Hojanu
+Global $DejarinEstate_Map = 379
+Global $DejarinEstate_Outpost = 426 						;Pogahn Passage
+Global $GandaraTheMoonFortress_Map = 382
+Global $GandaraTheMoonFortress_Outpost = 426 	;Pogahn Passage
+Global $JahaiBluffs_Map = 369
+Global $JahaiBluffs_Outpost = 424 							;Kodonur Crossroads
+Global $MargaCoast_Map = 371
+Global $MargaCoast_Outpost = 381                    		;Yohlon Haven
+Global $SunwardMarches_Map = 373
+Global $SunwardMarches_Outpost = 421					;Venta Cemetery
+Global $TheFloodplainOfMahnkelon_Map = 384
+Global $TheFloodplainOfMahnkelon_Outpost = 424 	;Kodonur Crossroads
+Global $TuraisProcession_Map = 386
+Global $TuraisProcession_Outpost = 421					;Venta Cemetery
+;Vabbi IDs
+Global $ForumHighlands_Map = 399
+Global $ForumHighlands_Outpost = 476					;Jennur's Horde
+Global $GardenOfSeborhin_Map = 399
+Global $GardenOfSeborhin_Outpost = 428				;Tihark Orchard
+Global $HoldingsOfChokhin_Map = 395
+Global $HoldingsOfChokhin_Outpost = 396				;Mihanu Township
+Global $ResplendentMakuun_Map = 402
+Global $ResplendentMakuun_Outpost = 403 			;Honur Hill
+Global $TheHiddenCityOfAhdashim_Map = 413
+Global $TheHiddenCityOfAhdashim_Outpost = 434	;Dasha Vestibule
+Global $TheMirrorOfLyss_Map = 419
+Global $TheMirrorOfLyss_Outpost = 414					;The Kodash Bazaar
+Global $VehjinMines_Map = 397
+Global $VehjinMines_Outpost = 476						;Jennur's Horde 
+Global $VehtendiValley_Map = 406
+Global $VehtendiValley_Outpost = 414						;The Kodash Bazaar
+Global $WildernessOfBahdza_Map = 404
+Global $WildernessOfBahdza_Outpost = 433			;Dzagonur Bastion
+Global $YatendiCanyons_Map = 392
+Global $YatendiCanyons_Outpost = 378 					;Wehhan Terraces
+;TheDesolation IDs
+Global $CrystalOverlook_Map
+Global $CrystalOverlook_Outpost
+Global $JokosDomain_Map =437
+Global $JokosDomain_Outpost =545
+Global $PoisonedOutcrops_Map
+Global $PoisonedOutcrops_Outpost
+Global $TheAlkaliPan_Map
+Global $TheAlkaliPan_Outpost
+Global $TheRupturedHeart_Map
+Global $TheRupturedHeart_Outpost
+Global $TheShatteredRavines_Map
+Global $TheShatteredRavines_Outpost
+Global $TheSulfurousWastes_Map = 444
+Global $TheSulfurousWastes_Outpost = 478 			;Gate of Desolation
+;CharrHomelands IDs
+Global $DaladaUplands_Map
+Global $DaladaUplands_Outpost
+Global $GrothmarWardowns_Map
+Global $GrothmarWardowns_Outpost
+Global $SacnothValley_Map
+Global $SacnothValley_Outpost
+;FarShiverpeaks IDs
+Global $BjoraMarches_Map
+Global $BjoraMarches_Outpost
+Global $DrakkarLake_Map
+Global $DrakkarLake_Outpost
+Global $IceCliffChasms_Map
+Global $IceCliffChasms_Outpost
+Global $JagaMoraine_Map
+Global $JagaMoraine_Outpost
+Global $NorrhartDomains_Map
+Global $NorrhartDomains_Outpost
+Global $VarajarFells_Map
+Global $VarajarFells_Outpost
+;TarnishedCoast IDs
+Global $ArborBay_Map = 485
+Global $ArborBay_Outpost = 624
+Global $AlcaziaTangle_Map = 572
+Global $AlcaziaTangle_Outpost = 641
+Global $MagusStones_Map = 569
+Global $MagusStones_Outpost = 640
+Global $RivenEarth_Map = 501
+Global $RivenEarth_Outpost = 640
+Global $SparkflySwamp_Map
+Global $SparkflySwamp_Outpost
+Global $VerdantCascades_Map
+Global $VerdantCascades_Outpost

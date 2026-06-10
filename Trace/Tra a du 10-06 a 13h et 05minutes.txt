@@ -1,0 +1,3 @@
+
+[13:05:34] [INFO] Travel Attempt #1
+[13:06:10] [INFO] Travel Attempt #1

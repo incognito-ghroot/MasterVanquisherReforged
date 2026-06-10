@@ -1,0 +1,3 @@
+Make it reset after finishing
+Make it use consets
+Convert all maps to use an array of waypoints

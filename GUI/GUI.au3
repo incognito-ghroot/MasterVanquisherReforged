@@ -1,0 +1,1590 @@
+
+Global $strName = ""
+Global $NumberRun = 0
+global $boolrun = False
+Global $coords[2]
+Global $Title, $sGW
+Global $Bool_Donate = False, $Bool_IdAndSell = False, $Bool_HM = False, $Bool_Store = False, $Bool_AddHeroes = False
+Global $Bool_OpenChests = False, $Bool_Conset = False
+Global $File = @ScriptDir & "\Trace\Tra a du " & @MDAY & "-" & @MON & " a " & @HOUR & "h et " & @MIN & "minutes.txt"
+If Not FileExists(@ScriptDir & "\Trace") Then DirCreate(@ScriptDir & "\Trace")
+$g_s_LogFile = $File
+Global $iniHero = @ScriptDir&"\Hero.ini"
+
+Opt("GUIOnEventMode", 1)
+
+#Region ### START Koda GUI section ### Form=c:\users\matte\desktop\gw\koda_1.7.3.0\definitive bible.kxf
+
+$Master_Vanquisher = GUICreate("Master Vanquisher Reforged", 1373, 685, 63, 117)
+
+;START
+$Start = GUICtrlCreateButton("START VANQUISHING", 1183, 414, 155, 73)
+
+;ASCALON AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_AscalonFoothills = GUICtrlCreateRadio("ASCALON FOOTHILS", 13, 25, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DiessaLowlands = GUICtrlCreateRadio("DIESSA LOWLANDS", 13, 41, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DragonsGullet = GUICtrlCreateRadio("DRAGON'S GULLET", 13, 57, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_EasternFrontier = GUICtrlCreateRadio("EASTERN FRONTIER", 13, 73, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_FlameTempleCorridor = GUICtrlCreateRadio("FLAME TEMPLE CORRIDOR", 13, 89, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_OldAscalon = GUICtrlCreateRadio("OLD ASCALON", 13, 105, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_PockmarkFlats = GUICtrlCreateRadio("POCKMARK FLATS", 13, 121, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_RegentValley = GUICtrlCreateRadio("REGENT VALLEY", 13, 137, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheBreach = GUICtrlCreateRadio("THE BREACH", 13, 153, 145, 17)
+;NORTHERN SHIVERPEAKS AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_AnvilRock = GUICtrlCreateRadio("ANVIL ROCK", 13, 201, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DeldrimorBowl = GUICtrlCreateRadio("DELDRIMOR BOWL", 13, 217, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_GriffonsMouth = GUICtrlCreateRadio("GRIFFON'S MOUTH", 13, 233, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_IronHorseMine = GUICtrlCreateRadio("IRON HORSE MINE", 13, 249, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TravelersVale = GUICtrlCreateRadio("TRAVELER'S VALE", 13, 265, 169, 17)
+;MAGUUMA AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DryTop = GUICtrlCreateRadio("DRY TOP", 13, 313, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_EttinsBack = GUICtrlCreateRadio("ETTIN'S BACK", 13, 329, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MamnoonLagoon = GUICtrlCreateRadio("MAMNOON LAGOON", 13, 345, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ReedBog = GUICtrlCreateRadio("REED BOG", 13, 361, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_Silverwood = GUICtrlCreateRadio("SILVERWOOD", 13, 377, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SageLands = GUICtrlCreateRadio("SAGE LANDS", 13, 393, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TangleRoot = GUICtrlCreateRadio("TANGLE ROOT", 13, 409, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheFalls = GUICtrlCreateRadio("THE FALLS", 13, 425, 145, 17)
+;CRYSTAL DESERT AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DivinersAscent = GUICtrlCreateRadio("DIVINER'S ASCENT", 13, 489, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ProphetsPath = GUICtrlCreateRadio("PROPHET PATH", 13, 505, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SaltFlats = GUICtrlCreateRadio("SALT FLATS", 13, 521, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SkywardReach = GUICtrlCreateRadio("SKYWARD REACH", 13, 537, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheAridSea = GUICtrlCreateRadio("THE ARID SEA", 13, 553, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheScar = GUICtrlCreateRadio("THE SCAR", 13, 569, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_VultureDrifts = GUICtrlCreateRadio("VULTURE DRIFTS", 13, 585, 169, 17)
+;KRYTA AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_CursedLands = GUICtrlCreateRadio("CURSED LANDS", 205, 25, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_KessexPeak = GUICtrlCreateRadio("KESSEX PEAK", 205, 41, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MajestysRest = GUICtrlCreateRadio("MAJESTY'S REST", 205, 57, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_NeboTerrace = GUICtrlCreateRadio("NEBO TERRACE", 205, 73, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_NorthKrytaProvince = GUICtrlCreateRadio("NORTH KRYTA PROVINCE", 205, 89, 161, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ScoundrelsRise = GUICtrlCreateRadio("SCOUNDREL'S RISE", 205, 105, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_StingrayStrand = GUICtrlCreateRadio("STINGRAY STRAND", 205, 121, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TalmarkWilderness = GUICtrlCreateRadio("TALMARK WILDERNESS", 205, 137, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TearsoftheFallen = GUICtrlCreateRadio("TEARS OF THE FALLEN", 205, 153, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheBlackCurtain = GUICtrlCreateRadio("THE BLACK CURTAIN", 205, 169, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TwinSerpentLakes = GUICtrlCreateRadio("TWIN SERPENT LAKES", 205, 185, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_WatchtowerCoast = GUICtrlCreateRadio("WATCHTOWER COAST", 205, 201, 145, 17)
+;SOUTHERN SHIVERPEAKS AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DreadnoughtsDrift = GUICtrlCreateRadio("DREADNOUGHT'S DRIFTS", 205, 249, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_FrozenForest = GUICtrlCreateRadio("FROZEN FOREST", 205, 265, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_GrenthsFootprint = GUICtrlCreateRadio("GRENTH'S FOOTPRINT", 205, 281, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_IceFloe = GUICtrlCreateRadio("ICE FLOE", 205, 297, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_Icedome = GUICtrlCreateRadio("ICEDOME", 205, 313, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_LornarsPass = GUICtrlCreateRadio("LORNAR'S PASS", 205, 329, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MineralSprings = GUICtrlCreateRadio("MINERAL SPRINGS", 205, 345, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SnakeDance = GUICtrlCreateRadio("SNAKE DANCE", 205, 361, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SpearheadPeak = GUICtrlCreateRadio("SPEARHEAD PEAK", 205, 377, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TalusChute = GUICtrlCreateRadio("TALUS CHUTE", 205, 393, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TascasDemise = GUICtrlCreateRadio("TASCA DEMISE", 205, 409, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_WitmansFolly = GUICtrlCreateRadio("WITMAN'S FOLLY", 205, 425, 145, 17)
+;RING OF FIRE AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_PerditionRock = GUICtrlCreateRadio("PERDITION ROCK", 205, 473, 145, 17)
+;SHING JEA AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_HaijuLagoon = GUICtrlCreateRadio("HAIJU LAGOON", 397, 25, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_JayaBluffs = GUICtrlCreateRadio("JAYA BUFFS", 397, 41, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_KinyaProvince = GUICtrlCreateRadio("KINYA PROVINCE", 397, 57, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MinisterChosEstate = GUICtrlCreateRadio("MINISTER'S CHO ESTATE", 397, 73, 153, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_PanjiangPeninsula = GUICtrlCreateRadio("PANJIANG PENINSULA", 397, 89, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SaoshangTrail = GUICtrlCreateRadio("SAOSHANG TRAIL", 397, 105, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SunquaVale = GUICtrlCreateRadio("SUNQUA VALE", 397, 121, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ZenDaijun = GUICtrlCreateRadio("ZEN DAIJUN", 397, 137, 175, 17)
+;KAINENG CITY AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_BukdekByway = GUICtrlCreateRadio("BUKDEK BYWAY", 397, 190, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_NahpuiQuarter = GUICtrlCreateRadio("NAHPUI QUARTER", 397, 206, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_PongmeiValley = GUICtrlCreateRadio("PONGMEI VALLEY", 397, 222, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_RaisuPalace = GUICtrlCreateRadio("RAISU PALACE", 397, 238, 153, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ShadowsPassage = GUICtrlCreateRadio("SHADOW'S PASSAGE", 397, 254, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ShenzunTunnels = GUICtrlCreateRadio("SHENZUN TUNNEL", 397, 270, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SunjiangDistrict = GUICtrlCreateRadio("SUNJIANG DISTRICT", 397, 286, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TahnnakiTemple = GUICtrlCreateRadio("TAHNNAKAI TEMPLE", 397, 302, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_WajjunBazaar = GUICtrlCreateRadio("WAJJUN BAZAAR", 397, 318, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_XaquangSkyway = GUICtrlCreateRadio("XAQUANG SKYWAY", 397, 334, 175, 17)
+;ECHOVALD FOREST AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_Arborstone = GUICtrlCreateRadio("ARBORSTONE", 398, 377, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DrazachThicket = GUICtrlCreateRadio("DRAZACH TICKET", 398, 393, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_Ferndale = GUICtrlCreateRadio("FERNDALE", 398, 409, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MelandrusHope = GUICtrlCreateRadio("MELANDRU'S HOPE", 398, 425, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MorostavTrail = GUICtrlCreateRadio("MOROSTAV TRAIL", 398, 441, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MourningVeilFalls = GUICtrlCreateRadio("MOURNING VEIL FALLS", 398, 457, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheEternalGrove = GUICtrlCreateRadio("THE ETERNAL GROVE", 398, 473, 175, 17)
+;THE JADE SEA AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_Archipelagos = GUICtrlCreateRadio("ARCHIPELAGOS", 397, 521, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_BoreasSeabed = GUICtrlCreateRadio("BOREAS SEABED", 397, 537, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_GyalaHatchery = GUICtrlCreateRadio("GYALA HATCHERY", 397, 553, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MaishangHills = GUICtrlCreateRadio("MAISHANG HILLS", 397, 569, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MountQinkai = GUICtrlCreateRadio("MOUNT QINKAI", 397, 585, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_RheasCrater = GUICtrlCreateRadio("RHEA'S CRATER", 397, 601, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SilentSurf = GUICtrlCreateRadio("SILENT SURF", 397, 617, 175, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_UnwakingWaters = GUICtrlCreateRadio("UNWAKING WATER", 397, 633, 175, 17)
+;ISTAN AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_CliffsOfDohjok = GUICtrlCreateRadio("CLIFFS OF DOHJOK", 593, 26, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_FahranurTheFirstCity = GUICtrlCreateRadio("FAHRANUR, THE FIRST CITY", 593, 42, 177, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_IssnurIsles = GUICtrlCreateRadio("ISSNUR ISLES", 593, 58, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_LahtendaBog = GUICtrlCreateRadio("LAHTENDA BOG", 593, 74, 153, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MehtaniKeys = GUICtrlCreateRadio("MEHTANI KEYS", 593, 90, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_PlainsofJarin = GUICtrlCreateRadio("PLAINS OF JARIN", 593, 106, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ZehlonReach = GUICtrlCreateRadio("ZEHLON REACH", 593, 122, 169, 17)
+;KOURNA AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ArkjokWard = GUICtrlCreateRadio("ARKJOK WARD", 593, 170, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_BahdokCaverns = GUICtrlCreateRadio("BAHDOK CAVERNS", 593, 186, 177, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_BarbarousShore = GUICtrlCreateRadio("BARBAROUS SHORE", 593, 202, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DejarinEstate = GUICtrlCreateRadio("DEJARIN ESTATE", 593, 218, 153, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_GandaraTheMoonFortress = GUICtrlCreateRadio("GANDARA THE MOON FORTRESS", 593, 234, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_JahaiBluffs = GUICtrlCreateRadio("JAHAI BLUFFS", 593, 250, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MargaCoast = GUICtrlCreateRadio("MARGA COAST", 593, 266, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SunwardMarches = GUICtrlCreateRadio("SUNWARD MARCHES", 593, 282, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheFloodplainOfMahnkelon = GUICtrlCreateRadio("THE FLOODPLAIN OF MAHNKELON", 593, 298, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TuraisProcession = GUICtrlCreateRadio("TURAI'S PROCESSION", 593, 314, 169, 17)
+;VABBI AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ForumHighlands = GUICtrlCreateRadio("FORUM HIGHLANDS", 593, 362, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_GardenOfSeborhin = GUICtrlCreateRadio("GARDEN OF SEBORHIN", 593, 378, 177, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_HoldingsOfChokhin = GUICtrlCreateRadio("HOLDINGS OF CHOKHIN", 593, 394, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ResplendentMakuun = GUICtrlCreateRadio("RESPLENDENT MAKUUN", 593, 410, 153, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheHiddenCityOfAhdashim = GUICtrlCreateRadio("THE HIDDEN CITY OF AHDASHIM", 593, 426, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheMirrorOfLyss = GUICtrlCreateRadio("THE MIRROR OF LYSS", 593, 442, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_VehjinMines = GUICtrlCreateRadio("VEHJIN MINES", 593, 458, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_VehtendiValley = GUICtrlCreateRadio("VEHTENDI VALLEY", 593, 474, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_WildernessOfBahdza = GUICtrlCreateRadio("WILDERNESS OF BAHZDA", 593, 490, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_YatendiCanyons = GUICtrlCreateRadio("YATENDI CANYONS", 593, 506, 169, 17)
+;THE DESOLATION AREAS
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_CrystalOverlook = GUICtrlCreateRadio("CRYSTAL OVERLOOK", 593, 550, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_JokosDomain = GUICtrlCreateRadio("JOKO'S DOMAIN", 593, 566, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_PoisonedOutcrops = GUICtrlCreateRadio("POISONED OUTCROPS", 593, 582, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheAlkaliPan = GUICtrlCreateRadio("THE ALKALI PAN", 593, 598, 153, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheRupturedHeart = GUICtrlCreateRadio("THE RUPTURED HEART", 593, 614, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheShatteredRavines = GUICtrlCreateRadio("THE SHATTERED RAVINES", 593, 630, 169, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_TheSulfurousWastes = GUICtrlCreateRadio("THE SULFUROUS WASTES", 593, 646, 169, 17)
+;CHARR HOMELANDS AREAS VANGUARD
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DaladaUplands = GUICtrlCreateRadio("DALADA UPLANDS", 787, 26, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_GrothmarWardowns = GUICtrlCreateRadio("GROTHMAR WARDOWNS", 787, 42, 177, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SacnothValley = GUICtrlCreateRadio("SACNOTH VALLEY", 787, 58, 145, 17)
+;FAR SHIVERPEAKS AREAS NORN
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_BjoraMarches = GUICtrlCreateRadio("BJORA MARCHES", 785, 101, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_DrakkarLake = GUICtrlCreateRadio("DRAKKAR LAKE", 785, 117, 177, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_IceCliffChasms = GUICtrlCreateRadio("ICE CLIFF CHASM", 785, 133, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_JagaMoraine = GUICtrlCreateRadio("JAGA MORAINE", 785, 149, 153, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_NorrhartDomains = GUICtrlCreateRadio("NORRHART DOMAINS", 785, 165, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_VarajarFells = GUICtrlCreateRadio("VARAJAR FELLS", 785, 181, 169, 17)
+;TARNISHED COAST AREAS ASURA
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_AlcaziaTangle = GUICtrlCreateRadio("ALCAZIA TANGLE", 785, 221, 177, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_ArborBay = GUICtrlCreateRadio("ARBOR BAY", 785, 237, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_MagusStones = GUICtrlCreateRadio("MAGUS STONE", 785, 253, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_RivenEarth = GUICtrlCreateRadio("RIVEN EARTH", 785, 269, 153, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_SparkflySwamp = GUICtrlCreateRadio("SPARKFLY SWAMP", 785, 285, 145, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Radio_VerdantCascades = GUICtrlCreateRadio("VERDANT CASCADES", 785, 301, 169, 17)
+
+;AreaGroups
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$ASCALON = GUICtrlCreateGroup("ASCALON", 8, 8, 185, 169)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$NORTHERN = GUICtrlCreateGroup("NORTHERN SHIVERPEAKS", 8, 184, 185, 105)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$SOUTHERN = GUICtrlCreateGroup("SOUTHERN SHIVERPEAKS", 200, 232, 185, 217)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$KRYTA = GUICtrlCreateGroup("KRYTA", 200, 8, 185, 217)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$MAGUUMA = GUICtrlCreateGroup("MAGUUMA JUNGLE", 8, 296, 185, 169)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$CRYSTAL = GUICtrlCreateGroup("CRYSTAL DESERT", 8, 472, 185, 137)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$RING = GUICtrlCreateGroup("RING OF FIRE ISLAND", 200, 456, 185, 49)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$SHINGJEA = GUICtrlCreateGroup("SHING JEA ISLAND", 392, 8, 185, 161)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$KAINENG = GUICtrlCreateGroup("KAINENG CITY", 392, 173, 185, 185)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$ECHOVALDFOREST = GUICtrlCreateGroup("ECHOVALD FOREST", 393, 360, 185, 137)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$THEJADESEA = GUICtrlCreateGroup("THE JADE SEA", 392, 504, 185, 153)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$ISTAN = GUICtrlCreateGroup("ISTAN", 588, 9, 185, 137)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$KOURNA = GUICtrlCreateGroup("KOURNA", 588, 153, 185, 185)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$VABBI = GUICtrlCreateGroup("VABBI", 588, 345, 185, 185)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$DESOLATION = GUICtrlCreateGroup("THE DESOLATION", 588, 533, 185, 137)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$CHARR = GUICtrlCreateGroup("CHARR HOMELANDS", 782, 9, 185, 73)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$COAST = GUICtrlCreateGroup("TARNISHED COAST", 780, 204, 185, 121)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$FARSHIVERPEAKS = GUICtrlCreateGroup("FAR SHIVERPEAKS", 780, 84, 185, 121)
+
+;GENERAL OPTIONS
+GUICtrlCreateGroup("", -99, -99, 1, 1)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$GENERAL = GUICtrlCreateGroup("GENERAL CONFIGURATOR", 1168, 10, 185, 289)
+$Gui_HM_enable = GUICtrlCreateCheckbox("HM", 1184, 34, 49, 17)
+$Gui_Store_unid = GUICtrlCreateCheckbox("STORE UNID", 1184, 58, 121, 17)
+$Gui_Id_and_sell = GUICtrlCreateCheckbox("ID AND SELL", 1184, 82, 115, 17)
+$Gui_CartoMode = GUICtrlCreateCheckbox("CARTO MODE", 1184, 106, 97, 17)
+$Gui_Legio = GUICtrlCreateCheckbox("USE STONES", 1184, 130, 153, 17)
+$Gui_Bu = GUICtrlCreateCheckbox("USE BU", 1184, 154, 97, 17)
+$Gui_Conset = GUICtrlCreateCheckbox("USE CONSET", 1184, 178, 97, 17)
+$Gui_Donate = GUICtrlCreateCheckbox("DONATE", 1184, 202, 97, 17)
+$Gui_UseSkills = GUICtrlCreateCheckbox("USE SKILLS", 1184, 226, 97, 17)
+$Gui_OpenChests = GUICtrlCreateCheckbox("OPEN CHESTS", 1184, 250, 97, 17)
+
+;VANQUISH INFO
+$VANQUISH = GUICtrlCreateGroup("VANQUISH", 1168, 301, 185, 81)
+$Killed = GUICtrlCreateLabel("KILLED", 1184, 325, 47, 17)
+$Missing = GUICtrlCreateLabel("MISSING", 1184, 341, 80, 17)
+$Total = GUICtrlCreateLabel("TOTAL MOBS", 1184, 357, 82, 17)
+$Tot_Killed = GUICtrlCreateLabel("0", 1288, 325, 40, 17, $SS_RIGHT)
+$Tot_Missing = GUICtrlCreateLabel("0", 1288, 341, 40, 17, $SS_RIGHT)
+$Tot_Total = GUICtrlCreateLabel("0", 1288, 357, 40, 17, $SS_RIGHT)
+
+;CHARACTER NAME
+GUICtrlCreateGroup("", -99, -99, 1, 1)
+GUICtrlCreateLabel("CHARACTER", 1168, 372, 185, 17, $SS_CENTER)
+Global Const $txtName = GUICtrlCreateCombo("", 1168, 388, 160, 25, BitOR($CBS_DROPDOWN, $CBS_AUTOHSCROLL))
+Global $btnRefreshChars = GUICtrlCreateButton("R", 1332, 388, 21, 25)
+GUICtrlSetTip(-1, "Refresh Guild Wars client list")
+GUICtrlSetOnEvent(-1, "RefreshCharNames")
+
+;RUN INFO AND TIMER
+GUICtrlCreateGroup("", -99, -99, 1, 1)
+GUICtrlCreateLabel("CURRENT ACTION", 1167, 506, 185, 17, $SS_CENTER)
+$StatusLabel = GUICtrlCreateEdit("", 1168, 528, 185, 130, 2097220)
+
+;$STATUS = GUICtrlCreateLabel("SCRIPT NOT STARTED YET", 1168, 528, 188, 33, $SS_CENTER)
+;$label_stat = GUICtrlCreateLabel("MIN: 000  SEC: 00", 1168, 548, 182, 25, $SS_CENTER)
+
+$Gui_AddHeroes = GUICtrlCreateCheckbox("ADD HEROES", 976, 9, 97, 17)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+
+;HERO TEAMS
+;HERO TEAMS
+GUICtrlCreateGroup("", -99, -99, 1, 1)
+GUICtrlSetOnEvent(-1, "gui_eventHandler")
+$Group2 = GUICtrlCreateGroup("ADD HEROES", 976, 32, 185, 201)
+Global $Hero1 = IniRead($iniHero, "Use Hero:", "1", "")
+Global $COMBO_HERO1 = GUICtrlCreateCombo($Hero1, 984, 56, 169, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL))
+GUICtrlSetData(-1, "TAHLKORA|DUNKORO|OGDEN STONEHEALER|MASTER OF WHISPERS|OLIAS|LIVIA|NORGU|GWEN|ACOLYTE SOUSUKE|ZHED SHADOWHOOF|VEKK|ZENMAI|ANTON|MIKU|XANDRA|ZEI REI|HAYDA|GENERAL MORGAHN|M.O.X|MELONNI|KAHMU|RAZAH|MERCENARY HERO: 1|MERCENARY HERO: 2|MERCENARY HERO: 3|MERCENARY HERO: 4|MERCENARY HERO: 5|MERCENARY HERO: 6|MERCENARY HERO: 7|MERCENARY HERO: 8")
+Global $Hero2 = IniRead($iniHero, "Use Hero:", "2", "")
+Global $COMBO_HERO2 = GUICtrlCreateCombo($Hero2, 984, 80, 169, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL))
+GUICtrlSetData(-1, "TAHLKORA|DUNKORO|OGDEN STONEHEALER|MASTER OF WHISPERS|OLIAS|LIVIA|NORGU|GWEN|ACOLYTE SOUSUKE|ZHED SHADOWHOOF|VEKK|ZENMAI|ANTON|MIKU|XANDRA|ZEI REI|HAYDA|GENERAL MORGAHN|M.O.X|MELONNI|KAHMU|RAZAH|MERCENARY HERO: 1|MERCENARY HERO: 2|MERCENARY HERO: 3|MERCENARY HERO: 4|MERCENARY HERO: 5|MERCENARY HERO: 6|MERCENARY HERO: 7|MERCENARY HERO: 8")
+Global $Hero3 = IniRead($iniHero, "Use Hero:", "3", "")
+Global $COMBO_HERO3 = GUICtrlCreateCombo($Hero3, 984, 104, 169, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL))
+GUICtrlSetData(-1, "TAHLKORA|DUNKORO|OGDEN STONEHEALER|MASTER OF WHISPERS|OLIAS|LIVIA|NORGU|GWEN|ACOLYTE SOUSUKE|ZHED SHADOWHOOF|VEKK|ZENMAI|ANTON|MIKU|XANDRA|ZEI REI|HAYDA|GENERAL MORGAHN|M.O.X|MELONNI|KAHMU|RAZAH|MERCENARY HERO: 1|MERCENARY HERO: 2|MERCENARY HERO: 3|MERCENARY HERO: 4|MERCENARY HERO: 5|MERCENARY HERO: 6|MERCENARY HERO: 7|MERCENARY HERO: 8")
+Global $Hero4 = IniRead($iniHero, "Use Hero:", "4", "")
+Global $COMBO_HERO4 = GUICtrlCreateCombo($Hero4, 984, 128, 169, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL))
+GUICtrlSetData(-1, "TAHLKORA|DUNKORO|OGDEN STONEHEALER|MASTER OF WHISPERS|OLIAS|LIVIA|NORGU|GWEN|ACOLYTE SOUSUKE|ZHED SHADOWHOOF|VEKK|ZENMAI|ANTON|MIKU|XANDRA|ZEI REI|HAYDA|GENERAL MORGAHN|M.O.X|MELONNI|KAHMU|RAZAH|MERCENARY HERO: 1|MERCENARY HERO: 2|MERCENARY HERO: 3|MERCENARY HERO: 4|MERCENARY HERO: 5|MERCENARY HERO: 6|MERCENARY HERO: 7|MERCENARY HERO: 8")
+Global $Hero5 = IniRead($iniHero, "Use Hero:", "5", "")
+Global $COMBO_HERO5 = GUICtrlCreateCombo($Hero5, 984, 152, 169, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL))
+GUICtrlSetData(-1, "TAHLKORA|DUNKORO|OGDEN STONEHEALER|MASTER OF WHISPERS|OLIAS|LIVIA|NORGU|GWEN|ACOLYTE SOUSUKE|ZHED SHADOWHOOF|VEKK|ZENMAI|ANTON|MIKU|XANDRA|ZEI REI|HAYDA|GENERAL MORGAHN|M.O.X|MELONNI|KAHMU|RAZAH|MERCENARY HERO: 1|MERCENARY HERO: 2|MERCENARY HERO: 3|MERCENARY HERO: 4|MERCENARY HERO: 5|MERCENARY HERO: 6|MERCENARY HERO: 7|MERCENARY HERO: 8")
+Global $Hero6 = IniRead($iniHero, "Use Hero:", "6", "")
+Global $COMBO_HERO6 = GUICtrlCreateCombo($Hero6, 984, 176, 169, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL))
+GUICtrlSetData(-1, "TAHLKORA|DUNKORO|OGDEN STONEHEALER|MASTER OF WHISPERS|OLIAS|LIVIA|NORGU|GWEN|ACOLYTE SOUSUKE|ZHED SHADOWHOOF|VEKK|ZENMAI|ANTON|MIKU|XANDRA|ZEI REI|HAYDA|GENERAL MORGAHN|M.O.X|MELONNI|KAHMU|RAZAH|MERCENARY HERO: 1|MERCENARY HERO: 2|MERCENARY HERO: 3|MERCENARY HERO: 4|MERCENARY HERO: 5|MERCENARY HERO: 6|MERCENARY HERO: 7|MERCENARY HERO: 8")
+Global $Hero7 = IniRead($iniHero, "Use Hero:", "7", "")
+Global $COMBO_HERO7 = GUICtrlCreateCombo($Hero7, 984, 200, 169, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL))
+GUICtrlSetData(-1, "TAHLKORA|DUNKORO|OGDEN STONEHEALER|MASTER OF WHISPERS|OLIAS|LIVIA|NORGU|GWEN|ACOLYTE SOUSUKE|ZHED SHADOWHOOF|VEKK|ZENMAI|ANTON|MIKU|XANDRA|ZEI REI|HAYDA|GENERAL MORGAHN|M.O.X|MELONNI|KAHMU|RAZAH|MERCENARY HERO: 1|MERCENARY HERO: 2|MERCENARY HERO: 3|MERCENARY HERO: 4|MERCENARY HERO: 5|MERCENARY HERO: 6|MERCENARY HERO: 7|MERCENARY HERO: 8")
+
+GUICtrlSetState($COMBO_HERO1, $GUI_DISABLE)
+GUICtrlSetState($COMBO_HERO2, $GUI_DISABLE)
+GUICtrlSetState($COMBO_HERO3, $GUI_DISABLE)
+GUICtrlSetState($COMBO_HERO4, $GUI_DISABLE)
+GUICtrlSetState($COMBO_HERO5, $GUI_DISABLE)
+GUICtrlSetState($COMBO_HERO6, $GUI_DISABLE)
+GUICtrlSetState($COMBO_HERO7, $GUI_DISABLE)
+
+GUICtrlCreateGroup("", -99, -99, 1, 1)
+$Group1 = GUICtrlCreateGroup("MINIMUM RARITY", 976, 240, 185, 105)
+
+Global $ITEM_RARITY = GUICtrlCreateCombo("GOLD", 984, 266, 169, 25, BitOR($CBS_DROPDOWN,$CBS_AUTOHSCROLL))
+GUICtrlSetData($ITEM_RARITY, "PURPLE|BLUE|WHITE")
+
+
+Global $GUISaveHeroButton = GUICtrlCreateButton("SAVE HEROES", 1021, 494, 97, 25)
+GUICtrlSetOnEvent($GUISaveHeroButton, "InitSave")
+$RUN = GUICtrlCreateGroup("RUNS", 976, 528, 185, 49)
+GUICtrlCreateLabel("TOTAL RUNS", 984, 549, 80, 17)
+$gui_status_runs = GUICtrlCreateLabel("0", 1143, 552, 10, 17, $SS_RIGHT)
+
+
+GUISetOnEvent($GUI_EVENT_CLOSE, "gui_eventHandler")
+GUICtrlSetState($Gui_Id_and_sell, $GUI_UNCHECKED)
+GUICtrlSetState($Gui_Store_unid, $GUI_UNCHECKED)
+GUICtrlSetState($Gui_HM_enable, $GUI_CHECKED)
+GUICtrlSetState($Gui_UseSkills, $GUI_CHECKED)
+GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+GUISetState(@SW_SHOW)
+RefreshCharNames()
+
+#EndRegion ### END Koda GUI section ###
+
+func gui_eventHandler()
+	switch (@GUI_CtrlId)
+
+		Case $Gui_AddHeroes
+			$Bool_AddHeroes = Not $Bool_AddHeroes
+			GUICtrlSetState($COMBO_HERO1, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
+			GUICtrlSetState($COMBO_HERO2, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
+			GUICtrlSetState($COMBO_HERO3, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
+			GUICtrlSetState($COMBO_HERO4, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
+			GUICtrlSetState($COMBO_HERO5, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
+			GUICtrlSetState($COMBO_HERO6, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
+			GUICtrlSetState($COMBO_HERO7, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
+		;ASCALON
+		Case $Radio_AscalonFoothills
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_DiessaLowlands
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_DragonsGullet
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_EasternFrontier
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_FlameTempleCorridor
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_CHECKED)
+		Case $Radio_OldAscalon
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_PockmarkFlats
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_RegentValley
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheBreach
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;NORTH SHIVERPEAKS
+		Case $Radio_AnvilRock
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_DeldrimorBowl
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_GriffonsMouth
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_IronHorseMine
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TravelersVale
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;MAGUUMA
+		Case $Radio_DryTop
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_EttinsBack
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MamnoonLagoon
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_ReedBog
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SageLands
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_Silverwood
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TangleRoot
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheFalls
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;CRYSTAL DESERT
+		Case $Radio_DivinersAscent
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_ProphetsPath
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SaltFlats
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SkywardReach
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheAridSea
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheScar
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_CHECKED)
+		Case $Radio_VultureDrifts
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;KRYTA
+		Case $Radio_CursedLands
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_KessexPeak
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MajestysRest
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_NeboTerrace
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_NorthKrytaProvince
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_ScoundrelsRise
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_StingrayStrand
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TalmarkWilderness
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TearsoftheFallen
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheBlackCurtain
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TwinSerpentLakes
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_WatchtowerCoast
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;SOUTHERN
+		Case $Radio_DreadnoughtsDrift
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_FrozenForest
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_GrenthsFootprint
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_IceFloe
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_Icedome
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_LornarsPass
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MineralSprings
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SnakeDance
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SpearheadPeak
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TalusChute
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TascasDemise
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_WitmansFolly
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;RING OF FIRE
+		Case $Radio_PerditionRock
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;SHING JEA
+		Case $Radio_HaijuLagoon
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_JayaBluffs
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_KinyaProvince
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MinisterChosEstate
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_PanjiangPeninsula
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SaoshangTrail
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SunquaVale
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_ZenDaijun
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;KAINENG CITY
+		Case $Radio_BukdekByway
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_NahpuiQuarter
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_PongmeiValley
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_RaisuPalace
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_ShadowsPassage
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_ShenzunTunnels
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SunjiangDistrict
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TahnnakiTemple
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_WajjunBazaar
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_XaquangSkyway
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+
+		;ECHOVALD FOREST
+		Case $Radio_Arborstone
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_DrazachThicket
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_Ferndale
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MelandrusHope
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MorostavTrail
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MourningVeilFalls
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheEternalGrove
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+
+		;JADE SEA
+		Case $Radio_Archipelagos
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_BoreasSeabed
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_GyalaHatchery
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MaishangHills
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MountQinkai
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_RheasCrater
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SilentSurf
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_UnwakingWaters
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;ISTAN
+		Case $Radio_CliffsOfDohjok
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_FahranurTheFirstCity
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_IssnurIsles
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_LahtendaBog
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MehtaniKeys
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_PlainsofJarin
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_ZehlonReach
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;KOURNA
+		Case $Radio_ArkjokWard
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_BahdokCaverns
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_BarbarousShore
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_DejarinEstate
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_GandaraTheMoonFortress
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_JahaiBluffs
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MargaCoast
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SunwardMarches
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheFloodplainOfMahnkelon
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TuraisProcession
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;VABBI
+		Case $Radio_ForumHighlands
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_GardenOfSeborhin
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_HoldingsOfChokhin
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_ResplendentMakuun
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheHiddenCityOfAhdashim
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheMirrorOfLyss
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_VehjinMines
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_VehtendiValley
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_WildernessOfBahdza
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_YatendiCanyons
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;DESOLATION
+		Case $Radio_CrystalOverlook
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_JokosDomain
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_PoisonedOutcrops
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheAlkaliPan
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheRupturedHeart
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheShatteredRavines
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_TheSulfurousWastes
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;CHARR
+		Case $Radio_DaladaUplands
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_GrothmarWardowns
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SacnothValley
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;NORN
+		Case $Radio_BjoraMarches
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_DrakkarLake
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_IceCliffChasms
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_JagaMoraine
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_NorrhartDomains
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_VarajarFells
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		;ASURA
+		Case $Radio_ArborBay
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_AlcaziaTangle
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_MagusStones
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_RivenEarth
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_SparkflySwamp
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+		Case $Radio_VerdantCascades
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+
+
+		Case $GUI_EVENT_CLOSE
+			exit
+		case $Start
+			If BitAND(GUICtrlRead($Radio_AscalonFoothills), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "AscalonFoothills"
+			ElseIf BitAND(GUICtrlRead($Radio_DiessaLowlands), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DiessaLowlands"
+			ElseIf BitAND(GUICtrlRead($Radio_DragonsGullet), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DragonsGullet"
+			ElseIf BitAND(GUICtrlRead($Radio_EasternFrontier), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "EasternFrontier"
+			ElseIf BitAND(GUICtrlRead($Radio_FlameTempleCorridor), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "FlameTempleCorridor"
+			ElseIf BitAND(GUICtrlRead($Radio_OldAscalon), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "OldAscalon"
+			ElseIf BitAND(GUICtrlRead($Radio_PockmarkFlats), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "PockmarkFlats"
+			ElseIf BitAND(GUICtrlRead($Radio_RegentValley), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "RegentValley"
+			ElseIf BitAND(GUICtrlRead($Radio_TheBreach), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheBreach"
+			ElseIf BitAND(GUICtrlRead($Radio_AnvilRock), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "AnvilRock"
+			ElseIf BitAND(GUICtrlRead($Radio_DeldrimorBowl), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DeldrimorBowl"
+			ElseIf BitAND(GUICtrlRead($Radio_GriffonsMouth), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "GriffonsMouth"
+			ElseIf BitAND(GUICtrlRead($Radio_IronHorseMine), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "IronHorseMine"
+			ElseIf BitAND(GUICtrlRead($Radio_TravelersVale), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TravelersVale"
+			ElseIf BitAND(GUICtrlRead($Radio_DryTop), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DryTop"
+			ElseIf BitAND(GUICtrlRead($Radio_EttinsBack), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "EttinsBack"
+			ElseIf BitAND(GUICtrlRead($Radio_MamnoonLagoon), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MamnoonLagoon"
+			ElseIf BitAND(GUICtrlRead($Radio_ReedBog), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ReedBog"
+			ElseIf BitAND(GUICtrlRead($Radio_SageLands), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SageLands"
+			ElseIf BitAND(GUICtrlRead($Radio_Silverwood), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "Silverwood"
+			ElseIf BitAND(GUICtrlRead($Radio_TangleRoot), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TangleRoot"
+			ElseIf BitAND(GUICtrlRead($Radio_TheFalls), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheFalls"
+			ElseIf BitAND(GUICtrlRead($Radio_DivinersAscent), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DivinersAscent"
+			ElseIf BitAND(GUICtrlRead($Radio_ProphetsPath), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ProphetsPath"
+			ElseIf BitAND(GUICtrlRead($Radio_SaltFlats), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SaltFlats"
+			ElseIf BitAND(GUICtrlRead($Radio_SkywardReach), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SkywardReach"
+			ElseIf BitAND(GUICtrlRead($Radio_TheAridSea), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheAridSea"
+			ElseIf BitAND(GUICtrlRead($Radio_TheScar), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheScar"
+			ElseIf BitAND(GUICtrlRead($Radio_VultureDrifts), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "VultureDrifts"
+			ElseIf BitAND(GUICtrlRead($Radio_CursedLands), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "CursedLands"
+			ElseIf BitAND(GUICtrlRead($Radio_KessexPeak), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "KessexPeak"
+			ElseIf BitAND(GUICtrlRead($Radio_MajestysRest), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MajestysRest"
+			ElseIf BitAND(GUICtrlRead($Radio_NeboTerrace), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "NeboTerrace"
+			ElseIf BitAND(GUICtrlRead($Radio_NorthKrytaProvince), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "NorthKrytaProvince"
+			ElseIf BitAND(GUICtrlRead($Radio_ScoundrelsRise), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ScoundrelsRise"
+			ElseIf BitAND(GUICtrlRead($Radio_StingrayStrand), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "StingrayStrand"
+			ElseIf BitAND(GUICtrlRead($Radio_TalmarkWilderness), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TalmarkWilderness"
+			ElseIf BitAND(GUICtrlRead($Radio_TearsoftheFallen), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TearsoftheFallen"
+			ElseIf BitAND(GUICtrlRead($Radio_TheBlackCurtain), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheBlackCurtain"
+			ElseIf BitAND(GUICtrlRead($Radio_TwinSerpentLakes), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TwinSerpentLakes"
+			ElseIf BitAND(GUICtrlRead($Radio_WatchtowerCoast), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "WatchtowerCoast"
+			ElseIf BitAND(GUICtrlRead($Radio_DreadnoughtsDrift), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DreadnoughtsDrift"
+			ElseIf BitAND(GUICtrlRead($Radio_FrozenForest), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "FrozenForest"
+			ElseIf BitAND(GUICtrlRead($Radio_GrenthsFootprint), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "GrenthsFootprint"
+			ElseIf BitAND(GUICtrlRead($Radio_IceFloe), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "IceFloe"
+			ElseIf BitAND(GUICtrlRead($Radio_Icedome), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "Icedome"
+			ElseIf BitAND(GUICtrlRead($Radio_LornarsPass), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "LornarsPass"
+			ElseIf BitAND(GUICtrlRead($Radio_MineralSprings), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MineralSprings"
+			ElseIf BitAND(GUICtrlRead($Radio_SnakeDance), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SnakeDance"
+			ElseIf BitAND(GUICtrlRead($Radio_SpearheadPeak), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SpearheadPeak"
+			ElseIf BitAND(GUICtrlRead($Radio_TalusChute), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TalusChute"
+			ElseIf BitAND(GUICtrlRead($Radio_TascasDemise), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TascasDemise"
+			ElseIf BitAND(GUICtrlRead($Radio_WitmansFolly), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "WitmansFolly"
+			ElseIf BitAND(GUICtrlRead($Radio_HaijuLagoon), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "HaijuLagoon"
+			ElseIf BitAND(GUICtrlRead($Radio_JayaBluffs), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "JayaBluffs"
+			ElseIf BitAND(GUICtrlRead($Radio_KinyaProvince), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "KinyaProvince"
+			ElseIf BitAND(GUICtrlRead($Radio_MinisterChosEstate), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MinisterChosEstate"
+			ElseIf BitAND(GUICtrlRead($Radio_PanjiangPeninsula), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "PanjiangPeninsula"
+			ElseIf BitAND(GUICtrlRead($Radio_SaoshangTrail), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SaoshangTrail"
+			ElseIf BitAND(GUICtrlRead($Radio_SunquaVale), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SunquaVale"
+			ElseIf BitAND(GUICtrlRead($Radio_ZenDaijun), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ZenDaijun"
+			ElseIf BitAND(GUICtrlRead($Radio_BukdekByway), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "BukdekByway"
+			ElseIf BitAND(GUICtrlRead($Radio_NahpuiQuarter), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "NahpuiQuarter"
+			ElseIf BitAND(GUICtrlRead($Radio_PongmeiValley), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "PongmeiValley"
+			ElseIf BitAND(GUICtrlRead($Radio_RaisuPalace), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "RaisuPalace"
+			ElseIf BitAND(GUICtrlRead($Radio_ShadowsPassage), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ShadowsPassage"
+			ElseIf BitAND(GUICtrlRead($Radio_ShenzunTunnels), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ShenzunTunnels"
+			ElseIf BitAND(GUICtrlRead($Radio_SunjiangDistrict), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SunjiangDistrict"
+			ElseIf BitAND(GUICtrlRead($Radio_TahnnakiTemple), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TahnnakiTemple"
+			ElseIf BitAND(GUICtrlRead($Radio_WajjunBazaar), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "WajjunBazaar"
+			ElseIf BitAND(GUICtrlRead($Radio_XaquangSkyway), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "XaquangSkyway"
+			ElseIf BitAND(GUICtrlRead($Radio_Arborstone), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "Arborstone"
+			ElseIf BitAND(GUICtrlRead($Radio_DrazachThicket), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DrazachThicket"
+			ElseIf BitAND(GUICtrlRead($Radio_Ferndale), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "Ferndale"
+			ElseIf BitAND(GUICtrlRead($Radio_MelandrusHope), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MelandrusHope"
+			ElseIf BitAND(GUICtrlRead($Radio_MorostavTrail), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MorostavTrail"
+			ElseIf BitAND(GUICtrlRead($Radio_MourningVeilFalls), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MourningVeilFalls"
+			ElseIf BitAND(GUICtrlRead($Radio_TheEternalGrove), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheEternalGrove"
+			ElseIf BitAND(GUICtrlRead($Radio_Archipelagos), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "Archipelagos"
+			ElseIf BitAND(GUICtrlRead($Radio_BoreasSeabed), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "BoreasSeabed"
+			ElseIf BitAND(GUICtrlRead($Radio_GyalaHatchery), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "GyalaHatchery"
+			ElseIf BitAND(GUICtrlRead($Radio_MaishangHills), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MaishangHills"
+			ElseIf BitAND(GUICtrlRead($Radio_MountQinkai), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MountQinkai"
+			ElseIf BitAND(GUICtrlRead($Radio_RheasCrater), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "RheasCrater"
+			ElseIf BitAND(GUICtrlRead($Radio_SilentSurf), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SilentSurf"
+			ElseIf BitAND(GUICtrlRead($Radio_UnwakingWaters), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "UnwakingWaters"
+			ElseIf BitAND(GUICtrlRead($Radio_CliffsOfDohjok), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "CliffsOfDohjok"
+			ElseIf BitAND(GUICtrlRead($Radio_FahranurTheFirstCity), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "FahranurTheFirstCity"
+			ElseIf BitAND(GUICtrlRead($Radio_IssnurIsles), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "IssnurIsles"
+			ElseIf BitAND(GUICtrlRead($Radio_LahtendaBog), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "LahtendaBog"
+			ElseIf BitAND(GUICtrlRead($Radio_MehtaniKeys), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MehtaniKeys"
+			ElseIf BitAND(GUICtrlRead($Radio_PlainsofJarin), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "PlainsofJarin"
+			ElseIf BitAND(GUICtrlRead($Radio_ZehlonReach), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ZehlonReach"
+			ElseIf BitAND(GUICtrlRead($Radio_ArkjokWard), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ArkjokWard"
+			ElseIf BitAND(GUICtrlRead($Radio_BahdokCaverns), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "BahdokCaverns"
+			ElseIf BitAND(GUICtrlRead($Radio_BarbarousShore), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "BarbarousShore"
+			ElseIf BitAND(GUICtrlRead($Radio_DejarinEstate), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DejarinEstate"
+			ElseIf BitAND(GUICtrlRead($Radio_GandaraTheMoonFortress), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "GandaraTheMoonFortress"
+			ElseIf BitAND(GUICtrlRead($Radio_JahaiBluffs), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "JahaiBluffs"
+			ElseIf BitAND(GUICtrlRead($Radio_MargaCoast), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MargaCoast"
+			ElseIf BitAND(GUICtrlRead($Radio_SunwardMarches), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SunwardMarches"
+			ElseIf BitAND(GUICtrlRead($Radio_TheFloodplainOfMahnkelon), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheFloodplainOfMahnkelon"
+			ElseIf BitAND(GUICtrlRead($Radio_TuraisProcession), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TuraisProcession"
+			ElseIf BitAND(GUICtrlRead($Radio_ForumHighlands), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ForumHighlands"
+			ElseIf BitAND(GUICtrlRead($Radio_GardenOfSeborhin), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "GardenOfSeborhin"
+			ElseIf BitAND(GUICtrlRead($Radio_HoldingsOfChokhin), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "HoldingsOfChokhin"
+			ElseIf BitAND(GUICtrlRead($Radio_ResplendentMakuun), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ResplendentMakuun"
+			ElseIf BitAND(GUICtrlRead($Radio_TheHiddenCityOfAhdashim), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheHiddenCityOfAhdashim"
+			ElseIf BitAND(GUICtrlRead($Radio_TheMirrorOfLyss), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheMirrorOfLyss"
+			ElseIf BitAND(GUICtrlRead($Radio_VehjinMines), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "VehjinMines"
+			ElseIf BitAND(GUICtrlRead($Radio_VehtendiValley), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "VehtendiValley"
+			ElseIf BitAND(GUICtrlRead($Radio_WildernessOfBahdza), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "WildernessOfBahdza"
+			ElseIf BitAND(GUICtrlRead($Radio_YatendiCanyons), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "YatendiCanyons"
+			ElseIf BitAND(GUICtrlRead($Radio_CrystalOverlook), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "CrystalOverlook"
+			ElseIf BitAND(GUICtrlRead($Radio_JokosDomain), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "JokosDomain"
+			ElseIf BitAND(GUICtrlRead($Radio_PoisonedOutcrops), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "PoisonedOutcrops"
+			ElseIf BitAND(GUICtrlRead($Radio_TheAlkaliPan), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheAlkaliPan"
+			ElseIf BitAND(GUICtrlRead($Radio_TheRupturedHeart), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheRupturedHeart"
+			ElseIf BitAND(GUICtrlRead($Radio_TheShatteredRavines), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheShatteredRavines"
+			ElseIf BitAND(GUICtrlRead($Radio_TheSulfurousWastes), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "TheSulfurousWastes"
+			ElseIf BitAND(GUICtrlRead($Radio_DaladaUplands), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DaladaUplands"
+			ElseIf BitAND(GUICtrlRead($Radio_GrothmarWardowns), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "GrothmarWardowns"
+			ElseIf BitAND(GUICtrlRead($Radio_SacnothValley), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SacnothValley"
+			ElseIf BitAND(GUICtrlRead($Radio_BjoraMarches), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "BjoraMarches"
+			ElseIf BitAND(GUICtrlRead($Radio_DrakkarLake), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "DrakkarLake"
+			ElseIf BitAND(GUICtrlRead($Radio_IceCliffChasms), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "IceCliffChasms"
+			ElseIf BitAND(GUICtrlRead($Radio_JagaMoraine), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "JagaMoraine"
+			ElseIf BitAND(GUICtrlRead($Radio_NorrhartDomains), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "NorrhartDomains"
+			ElseIf BitAND(GUICtrlRead($Radio_VarajarFells), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "VarajarFells"
+			ElseIf BitAND(GUICtrlRead($Radio_ArborBay), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "ArborBay"
+			ElseIf BitAND(GUICtrlRead($Radio_AlcaziaTangle), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "AlcaziaTangle"
+			ElseIf BitAND(GUICtrlRead($Radio_MagusStones), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "MagusStones"
+			ElseIf BitAND(GUICtrlRead($Radio_RivenEarth), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "RivenEarth"
+			ElseIf BitAND(GUICtrlRead($Radio_SparkflySwamp), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "SparkflySwamp"
+			ElseIf BitAND(GUICtrlRead($Radio_VerdantCascades), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title = "VerdantCascades"
+			ElseIf BitAND(GUICtrlRead($Radio_PerditionRock), $GUI_CHECKED) = $GUI_CHECKED Then
+				$Title= "PerditionRock"
+			Else
+				MsgBox(0, "Error", "No Map Selected.")
+				Return
+			EndIf
+
+			If GUICtrlRead($txtName) = "" Then
+				MsgBox(0, "Error", "Please select your character.")
+				Return
+			Else
+				If Initialize(GUICtrlRead($txtName), True) = False Then
+					MsgBox(0, "Error", "Can't find a Guild Wars client with that character name.")
+					Return
+				EndIf
+			EndIf
+
+			GUICtrlSetState($Radio_AscalonFoothills, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DiessaLowlands, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DragonsGullet, $GUI_DISABLE)
+			GUICtrlSetState($Radio_EasternFrontier, $GUI_DISABLE)
+			GUICtrlSetState($Radio_FlameTempleCorridor, $GUI_DISABLE)
+			GUICtrlSetState($Radio_OldAscalon, $GUI_DISABLE)
+			GUICtrlSetState($Radio_PockmarkFlats, $GUI_DISABLE)
+			GUICtrlSetState($Radio_RegentValley, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheBreach, $GUI_DISABLE)
+			GUICtrlSetState($Radio_AnvilRock, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DeldrimorBowl, $GUI_DISABLE)
+			GUICtrlSetState($Radio_GriffonsMouth, $GUI_DISABLE)
+			GUICtrlSetState($Radio_IronHorseMine, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TravelersVale, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DryTop, $GUI_DISABLE)
+			GUICtrlSetState($Radio_EttinsBack, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MamnoonLagoon, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ReedBog, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SageLands, $GUI_DISABLE)
+			GUICtrlSetState($Radio_Silverwood, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TangleRoot, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheFalls, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DivinersAscent, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ProphetsPath, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SaltFlats, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SkywardReach, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheAridSea, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheScar, $GUI_DISABLE)
+			GUICtrlSetState($Radio_VultureDrifts, $GUI_DISABLE)
+			GUICtrlSetState($Radio_CursedLands, $GUI_DISABLE)
+			GUICtrlSetState($Radio_KessexPeak, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MajestysRest, $GUI_DISABLE)
+			GUICtrlSetState($Radio_NeboTerrace, $GUI_DISABLE)
+			GUICtrlSetState($Radio_NorthKrytaProvince, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ScoundrelsRise, $GUI_DISABLE)
+			GUICtrlSetState($Radio_StingrayStrand, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TalmarkWilderness, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TearsoftheFallen, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheBlackCurtain, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TwinSerpentLakes, $GUI_DISABLE)
+			GUICtrlSetState($Radio_WatchtowerCoast, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DreadnoughtsDrift, $GUI_DISABLE)
+			GUICtrlSetState($Radio_FrozenForest, $GUI_DISABLE)
+			GUICtrlSetState($Radio_GrenthsFootprint, $GUI_DISABLE)
+			GUICtrlSetState($Radio_IceFloe, $GUI_DISABLE)
+			GUICtrlSetState($Radio_Icedome, $GUI_DISABLE)
+			GUICtrlSetState($Radio_LornarsPass, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MineralSprings, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SnakeDance, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SpearheadPeak, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TalusChute, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TascasDemise, $GUI_DISABLE)
+			GUICtrlSetState($Radio_WitmansFolly, $GUI_DISABLE)
+			GUICtrlSetState($Radio_PerditionRock, $GUI_DISABLE)
+			GUICtrlSetState($Radio_HaijuLagoon, $GUI_DISABLE)
+			GUICtrlSetState($Radio_JayaBluffs, $GUI_DISABLE)
+			GUICtrlSetState($Radio_KinyaProvince, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MinisterChosEstate, $GUI_DISABLE)
+			GUICtrlSetState($Radio_PanjiangPeninsula, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SaoshangTrail, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SunquaVale, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ZenDaijun, $GUI_DISABLE)
+			GUICtrlSetState($Radio_BukdekByway, $GUI_DISABLE)
+			GUICtrlSetState($Radio_NahpuiQuarter, $GUI_DISABLE)
+			GUICtrlSetState($Radio_PongmeiValley, $GUI_DISABLE)
+			GUICtrlSetState($Radio_RaisuPalace, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ShadowsPassage, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ShenzunTunnels, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SunjiangDistrict, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TahnnakiTemple, $GUI_DISABLE)
+			GUICtrlSetState($Radio_WajjunBazaar, $GUI_DISABLE)
+			GUICtrlSetState($Radio_XaquangSkyway, $GUI_DISABLE)
+			GUICtrlSetState($Radio_Arborstone, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DrazachThicket, $GUI_DISABLE)
+			GUICtrlSetState($Radio_Ferndale, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MelandrusHope, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MorostavTrail, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MourningVeilFalls, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheEternalGrove, $GUI_DISABLE)
+			GUICtrlSetState($Radio_Archipelagos, $GUI_DISABLE)
+			GUICtrlSetState($Radio_BoreasSeabed, $GUI_DISABLE)
+			GUICtrlSetState($Radio_GyalaHatchery, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MaishangHills, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MountQinkai, $GUI_DISABLE)
+			GUICtrlSetState($Radio_RheasCrater, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SilentSurf, $GUI_DISABLE)
+			GUICtrlSetState($Radio_UnwakingWaters, $GUI_DISABLE)
+			GUICtrlSetState($Radio_CliffsOfDohjok, $GUI_DISABLE)
+			GUICtrlSetState($Radio_FahranurTheFirstCity, $GUI_DISABLE)
+			GUICtrlSetState($Radio_IssnurIsles, $GUI_DISABLE)
+			GUICtrlSetState($Radio_LahtendaBog, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MehtaniKeys, $GUI_DISABLE)
+			GUICtrlSetState($Radio_PlainsofJarin, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ZehlonReach, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ArkjokWard, $GUI_DISABLE)
+			GUICtrlSetState($Radio_BahdokCaverns, $GUI_DISABLE)
+			GUICtrlSetState($Radio_BarbarousShore, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DejarinEstate, $GUI_DISABLE)
+			GUICtrlSetState($Radio_GandaraTheMoonFortress, $GUI_DISABLE)
+			GUICtrlSetState($Radio_JahaiBluffs, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MargaCoast, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SunwardMarches, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheFloodplainOfMahnkelon, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TuraisProcession, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ForumHighlands, $GUI_DISABLE)
+			GUICtrlSetState($Radio_GardenOfSeborhin, $GUI_DISABLE)
+			GUICtrlSetState($Radio_HoldingsOfChokhin, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ResplendentMakuun, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheHiddenCityOfAhdashim, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheMirrorOfLyss, $GUI_DISABLE)
+			GUICtrlSetState($Radio_VehjinMines, $GUI_DISABLE)
+			GUICtrlSetState($Radio_VehtendiValley, $GUI_DISABLE)
+			GUICtrlSetState($Radio_WildernessOfBahdza, $GUI_DISABLE)
+			GUICtrlSetState($Radio_YatendiCanyons, $GUI_DISABLE)
+			GUICtrlSetState($Radio_CrystalOverlook, $GUI_DISABLE)
+			GUICtrlSetState($Radio_JokosDomain, $GUI_DISABLE)
+			GUICtrlSetState($Radio_PoisonedOutcrops, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheAlkaliPan, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheRupturedHeart, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheShatteredRavines, $GUI_DISABLE)
+			GUICtrlSetState($Radio_TheSulfurousWastes, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DaladaUplands, $GUI_DISABLE)
+			GUICtrlSetState($Radio_GrothmarWardowns, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SacnothValley, $GUI_DISABLE)
+			GUICtrlSetState($Radio_BjoraMarches, $GUI_DISABLE)
+			GUICtrlSetState($Radio_DrakkarLake, $GUI_DISABLE)
+			GUICtrlSetState($Radio_IceCliffChasms, $GUI_DISABLE)
+			GUICtrlSetState($Radio_JagaMoraine, $GUI_DISABLE)
+			GUICtrlSetState($Radio_NorrhartDomains, $GUI_DISABLE)
+			GUICtrlSetState($Radio_VarajarFells, $GUI_DISABLE)
+			GUICtrlSetState($Radio_ArborBay, $GUI_DISABLE)
+			GUICtrlSetState($Radio_AlcaziaTangle, $GUI_DISABLE)
+			GUICtrlSetState($Radio_MagusStones, $GUI_DISABLE)
+			GUICtrlSetState($Radio_RivenEarth, $GUI_DISABLE)
+			GUICtrlSetState($Radio_SparkflySwamp, $GUI_DISABLE)
+			GUICtrlSetState($Radio_VerdantCascades, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Id_and_sell, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Store_unid, $GUI_DISABLE)
+			GUICtrlSetState($Gui_HM_enable, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Bu, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Conset, $GUI_DISABLE)
+			GUICtrlSetState($Gui_Legio, $GUI_DISABLE)
+			GUICtrlSetState($Start, $GUI_DISABLE)
+			GUICtrlSetState($txtName, $GUI_DISABLE)
+
+			If BitAND(GUICtrlRead($Gui_Id_and_sell), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_IdAndSell = True
+			If BitAND(GUICtrlRead($Gui_Store_unid), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Store = True
+			If BitAND(GUICtrlRead($Gui_HM_enable), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_HM = True
+			If BitAND(GUICtrlRead($Gui_Donate), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Donate = True
+			If BitAND(GUICtrlRead($Gui_OpenChests), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_OpenChests = True
+			If BitAND(GUICtrlRead($Gui_Conset), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Conset = True
+
+			$NumberRun = 0
+			$RunSuccess = 0
+			$boolrun = True
+
+			$sGW = "Guild Wars - " & GUICtrlRead($txtName)
+			AdlibRegister("ReduceMemory", 20000)
+			AdlibRegister("UpdateVanquish", 10000)
+	endswitch
+endfunc
+
+Func _Vanquisher_IsWine()
+	Local $l_a_Wine = DllCall("ntdll.dll", "str", "wine_get_version")
+	Return Not @error And IsArray($l_a_Wine) And $l_a_Wine[0] <> ""
+EndFunc
+
+Func RefreshCharNames()
+	Local $l_i_GWCount = _Vanquisher_CountGWClients()
+	Local $l_s_Names = GetLoggedCharNames()
+	Local $l_s_WineHint = ""
+
+	If _Vanquisher_IsWine() Then
+		$l_s_WineHint = " On Linux/Wine, launch via Launchers/start_vanquisher.sh <gw#> so AutoIt uses the same WINEPREFIX as Guild Wars."
+	EndIf
+
+	If $l_i_GWCount = 0 And $l_s_Names = "" Then
+		GUICtrlSetData($txtName, "")
+		CurrentAction("No Guild Wars client found. Start Guild Wars, log in, then click R." & $l_s_WineHint)
+		Return
+	EndIf
+
+	If $l_s_Names = "" Then
+		GUICtrlSetData($txtName, "")
+		CurrentAction("Found " & $l_i_GWCount & " client(s) but no character names. Log in fully, use 32-bit AutoIt (AutoIt3.exe), then click R." & $l_s_WineHint)
+		Return
+	EndIf
+
+	GUICtrlSetData($txtName, "")
+	GUICtrlSetData($txtName, $l_s_Names)
+	CurrentAction("Characters: " & StringReplace($l_s_Names, "|", ", "))
+EndFunc
+
+Func UpdateVanquish()
+	GUICtrlSetData($Tot_Killed, GetFoesKilled())
+	GUICtrlSetData($Tot_Missing, GetFoesToKill())
+EndFunc
+	
+
+Func ReduceMemory()
+	$hWnd = WinGetHandle($sGW)
+	If WinExists($hWnd) Then
+		$pid = WinGetProcess($hWnd)
+		$Pr_Handle = DllCall("kernel32.dll", 'int', 'OpenProcess', 'int', 0x1f0fff, 'int', False, 'int', $pid)
+		DllCall("psapi.dll", 'int', 'EmptyWorkingSet', 'long', $Pr_Handle[0])
+		DllCall('kernel32.dll', 'int', 'CloseHandle', 'int', $Pr_Handle[0])
+	EndIf
+EndFunc
+
+Func CurrentAction($TEXT)
+	Local $TEXTLEN = StringLen($TEXT)
+	Local $CONSOLELEN = _GUICtrlEdit_GetTextLen($StatusLabel)
+	If $TEXTLEN + $CONSOLELEN > 30000 Then GUICtrlSetData($StatusLabel, StringRight(_GUICtrlEdit_GetText($StatusLabel), 30000 - $TEXTLEN - 1000))
+	_GUICtrlEdit_AppendText($StatusLabel, @CRLF & "[" & @HOUR & ":" & @MIN & "] " & $TEXT)
+	_GUICtrlEdit_Scroll($StatusLabel, 1)
+EndFunc   ;==>CurrentAction
+
+;############################
+;##### MIGHT BE USELESS #####
+;############################
+
+Func SellItemToMerchant()
+	If $Bool_Store Then
+		CurrentAction("Storing Gold Unid")
+		StoreGolds()
+		Sleep(1000)
+	EndIf
+	If $Bool_IdAndSell Then
+		CurrentAction("Going to merchant")
+		If $Title = "ShadowsPassage" Then
+			$merchant = GetNearestNPCToCoords(-10704, 6863)
+		ElseIf $Title = "RaisuPalace" Then
+			$merchant = GetNearestNPCToCoords(-10867, -1943)
+		ElseIf $Title = "Archipelagos" Then
+			$merchant = GetNearestNPCToCoords(7717, -2141)
+		ElseIf $Title = "BoreasSeabed" Then
+			$merchant = GetNearestNPCToCoords(1662,-5206)
+		ElseIf $Title = "MountQinkai" Then
+			$merchant = GetNearestNPCToCoords(-4248, 11260)
+		ElseIf $Title = "Gyala" Then
+			$merchant = GetNearestNPCToCoords(12296, -20258)
+		ElseIf $Title = "Rhea" Then
+			$merchant = GetNearestNPCToCoords(-2080, 6960)
+		ElseIf $Title = "Waters" Then
+			$merchant = GetNearestNPCToCoords(3926, 3652)
+		ElseIf $Title = "Norrhart" Then
+			$merchant = GetNearestNPCToCoords(-4318, 11298)
+		ElseIf $Title = "ArborBay" Then
+			$merchant = GetNearestNPCToCoords(-1795, -2482)
+		ElseIf $Title = "AlcaziaTangle" Then
+			$merchant = GetNearestNPCToCoords(498, 1297)
+		ElseIf $Title = "Stones" Then
+			$merchant = GetNearestNPCToCoords(-21032,10979)
+		ElseIf $Title = "Riven" Then
+			$merchant = GetNearestNPCToCoords(-19166, 17980)
+		ElseIf $Title = "Swamp" Then
+			$merchant = GetNearestNPCToCoords(1598, -951)
+		ElseIf $Title = "Cascades" Then
+			$merchant = GetNearestNPCToCoords(-21050, 10920)
+		ElseIf $Title = "DaladaUplands" Then
+			$merchant = GetNearestNPCToCoords(-4318, 11298)
+		ElseIf $Title = "GrothmarWardowns" Then
+			$merchant = GetNearestNPCToCoords(-1795, -2482)
+		ElseIf $Title = "SacnothValley" Then
+			$merchant = GetNearestNPCToCoords(498, 1297)
+
+		EndIf
+		Sleep(1000)
+		GoToNPC($merchant)
+		Sleep(1000)
+		If $Title = "Bjora" Then
+			Sleep(2000)
+			Dialog(0x0000007F)
+		EndIf
+		BuyIDKit()
+		Sleep(1000)
+		CurrentAction("Ident inventory")
+		Ident(1)
+		Ident(2)
+		Ident(3)
+		Ident(4)
+		CurrentAction("Sell inventory")
+		Sell(1)
+		Sell(2)
+		Sell(3)
+		Sell(4)
+	EndIf
+EndFunc  ;==>SellItemToMerchant
+
+Func GetExtraItemInfo($aitem)
+	;Use GetRarity() instead...
+    If IsDllStruct($aitem) = 0 Then $aAgent = GetItemByItemID($aitem)
+    $lItemExtraPtr = DllStructGetData($aitem, "namestring")
+
+    ;DllCall($mHandle[0], 'int', 'ReadProcessMemory', 'int', $mHandle[1], 'int', $lItemExtraPtr, 'ptr', $lItemExtraStructPtr, 'int', $lItemExtraStructSize, 'int', '')
+    Return $lItemExtraStruct
+EndFunc   ;==>GetExtraItemInfo
+
+Func GoMerchant($id_merchant, $xmerchant, $ymerchant)
+	Local $lNearestAgent, $lNearestDistance = 100000000
+	Local $lDistance, $lAgentToCompare
+
+	For $i = 1 To GetMaxAgents()
+		$lAgentToCompare = GetAgentByID($i)
+		If DllStructGetData($lAgentToCompare, 'PlayerNumber') <> $id_merchant then ContinueLoop
+		Sleep(150)
+		ChangeTarget($lAgentToCompare)
+		Sleep(150)
+		GoNPC($lAgentToCompare)
+		ExitLoop
+	Next
+	Do
+		Sleep(100)
+	Until
+	($xmerchant, $ymerchant)
+	Sleep(2000)
+EndFunc
+
+Func StoreGolds()
+	GoldIs(1)
+	GoldIs(2)
+	GoldIs(3)
+	GoldIs(4)
+EndFunc
+
+Func GoldIs($bagIndex)
+	$lBag = GetBag($bagIndex)
+
+	For $i = 1 To DllStructGetData($lBag, 'Slots')
+		$aItem = GetItemBySlot($bagIndex, $i)
+		ConsoleWrite("Checking items: " & $bagIndex & ", " & $i & @CRLF & GetRarity($aItem) & @crlf)
+		If DllStructGetData($aItem, 'ID') <> 0 And GetRarity($aItem) = $RARITY_Gold Then
+				Do
+					For $bag = 8 To 12; Storage panels are form 8 till 16 (I have only standard amount plus aniversary one)
+						$slot = FindEmptySlot($bag)
+						$slot = @extended
+						If $slot <> 0 Then
+							$FULL = False
+							$nSlot = $slot
+							ExitLoop 2; finding first empty $slot in $bag and jump out
+						Else
+							$FULL = True; no empty slots :(
+						EndIf
+						Sleep(400)
+					Next
+				Until $FULL = True
+				If $FULL = False Then
+					MoveItem($aItem, $bag, $nSlot)
+					ConsoleWrite("Gold item moved ...."& @CRLF)
+					Sleep(Random(450, 550))
+				EndIf
+		EndIf
+	Next
+EndFunc   ;==>GoldIs
+
+Func CheckIfInventoryIsFull()
+	If CountSlots() = 0 Then
+		return true
+	Else
+		return false
+	EndIf
+EndFunc   ;==>CheckIfInventoryIsFull
+
+Func WaitForLoad()
+	CurrentAction("Loading zone")
+	InitMapLoad()
+	$deadlock = 0
+	Sleep(100)
+	Do
+		Sleep(100)
+		$deadlock += 100
+		$load = GetMapLoading()
+		$lMe = GetAgentByID(-2)
+
+	Until $load = 2 And DllStructGetData($lMe, 'X') = 0 And DllStructGetData($lMe, 'Y') = 0 Or $deadlock > 1000
+
+	$deadlock = 0
+	Do
+		Sleep(100)
+		$deadlock += 100
+
+		$deadlock += 100
+		$load = GetMapLoading()
+		$lMe = GetAgentByID(-2)
+
+	Until $load <> 2 And DllStructGetData($lMe, 'X') <> 0 And DllStructGetData($lMe, 'Y') <> 0 Or $deadlock > 3000
+	CurrentAction("Load complete")
+	Sleep(1000)
+EndFunc   ;==>WaitForLoad
+
+;Func CheckArea($AX, $AY)
+;	Local $RET = False
+;	Local $PX = DllStructGetData(GetAgentByID(-2), "X")
+;	Local $PY = DllStructGetData(GetAgentByID(-2), "Y")
+;	If ($PX < $AX + 500) And ($PX > $AX - 500) And ($PY < $AY + 500) And ($PY > $AY - 500) Then
+;		$RET = True
+;	EndIf
+;	Return $RET
+;EndFunc   ;==>CHECKAREA
+
+
+
+
