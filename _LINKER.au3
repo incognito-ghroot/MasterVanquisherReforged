@@ -32,7 +32,6 @@
 #include <WinAPI.au3>
 #include <Memory.au3>
 #include <Process.au3>
-#include <Sound.au3>
 
 #include "../../API/_GwAu3.au3"
 #include "Vanquisher_Globals.au3"

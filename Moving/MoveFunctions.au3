@@ -1,4 +1,4 @@
-Global Const $CHECK_INTERVAL = 15000 ; 30 secondi
+Global Const $CHECK_INTERVAL = 5000
 Global Const $REWARD_WAIT_TIME = 1800000 ; 30 minuti
 Global Const $CARTO_MODE_SLEEP = 3600000 ; 1 ora
 Global $ActionCounter = 0
@@ -13,21 +13,12 @@ Func MoveandAggroVQ($aWaypoints)
     $BlockCount = 20
     For $Index = 0 To UBound($aWaypoints) - 1
         $RangeLimit = $aWaypoints[$Index][3]
-        If TimerDiff($timer) >= $CHECK_INTERVAL Then
-            $timer = TimerInit()
-            If GetFoesToKill() = 0 Then
-                If _IsCartoModeEnabled() Then
-					SoundPlay("Sounds\CartoMode.wav")
-					Sleep($CARTO_MODE_SLEEP)
-                Else
-                    SoundPlay("Sounds\MissionComplete.wav")
-                    Sleep (3600000)
-                    Return
-                EndIf
-            EndIf
-        EndIf
+        If _Vanquisher_CheckVanquishDuringRoute($timer, " (forward)") Then Return
         AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
         $ActionCounter += 1
+        If _Vanquisher_IsVanquishComplete() Then
+            If _Vanquisher_OnVanquishComplete(" (forward)") Then Return
+        EndIf
         If $DeadOnTheRun Then
             CurrentAction("We died fighting at: " & $aWaypoints[$Index][2] & $ActionCounter & ", restarting waypoints.")
             $ActionCounter = 1
@@ -36,47 +27,36 @@ Func MoveandAggroVQ($aWaypoints)
             $BlockCount = 2; let's try and get back to our spot ASAP 
         EndIf
     Next
+    If _Vanquisher_IsVanquishComplete() Then
+        _Vanquisher_OnVanquishComplete(" (forward end)")
+    EndIf
 EndFunc
 
 Func MoveandAggroVQWurm($aWaypoints)
     Local $timer = TimerInit()
     For $Index = 0 To UBound($aWaypoints) - 1
-        If TimerDiff($timer) >= $CHECK_INTERVAL Then
-            $timer = TimerInit()
-            If GetFoesToKill() = 0 Then
-                If _IsCartoModeEnabled() Then
-					SoundPlay("Sounds\CartoMode.wav")
-					Sleep($CARTO_MODE_SLEEP)
-                Else
-                    SoundPlay("Sounds\MissionComplete.wav")
-                    Sleep (3600000)
-                    Return
-                EndIf
-            EndIf
-        EndIf
+        If _Vanquisher_CheckVanquishDuringRoute($timer, " (wurm)") Then Return
         AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
         $ActionCounter += 1
+        If _Vanquisher_IsVanquishComplete() Then
+            If _Vanquisher_OnVanquishComplete(" (wurm)") Then Return
+        EndIf
 		Sleep(7000)
     Next
+    If _Vanquisher_IsVanquishComplete() Then
+        _Vanquisher_OnVanquishComplete(" (wurm end)")
+    EndIf
 EndFunc
 
 Func MoveandAggroVQReverse($aWaypoints)
     Local $timer = TimerInit()
     For $Index = UBound($aWaypoints) - 1 To 0 Step -1
-        If TimerDiff($timer) >= $CHECK_INTERVAL Then
-            $timer = TimerInit()
-            If GetFoesToKill() = 0 Then
-                If _IsCartoModeEnabled() Then
-								SoundPlay("Sounds\CartoMode.wav")
-								Sleep($CARTO_MODE_SLEEP)
-                Else
-                    SoundPlay("Sounds\MissionComplete.wav")
-                    Return
-                EndIf
-            EndIf
-        EndIf
+        If _Vanquisher_CheckVanquishDuringRoute($timer, " (reverse)") Then Return
         AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
         $ActionCounter += 1
+        If _Vanquisher_IsVanquishComplete() Then
+            If _Vanquisher_OnVanquishComplete(" (reverse)") Then Return
+        EndIf
         If $DeadOnTheRun Then
             CurrentAction("We died fighting at: " & $aWaypoints[$Index][2] & $ActionCounter & ", restarting waypoints.")
             $ActionCounter = 1
@@ -85,10 +65,30 @@ Func MoveandAggroVQReverse($aWaypoints)
             $BlockCount = 2; let's try and get back to our spot ASAP 
         EndIf
     Next
-    If GetFoesToKill() <> 0 Then
-        SoundPlay("Sounds\ManualCheck.wav")
+    If _Vanquisher_IsVanquishComplete() Then
+        _Vanquisher_OnVanquishComplete(" (reverse end)")
+    Else
+        CurrentAction("Vanquish incomplete — " & GetFoesToKill() & " foes still on map.")
 		Sleep (3600000)
     EndIf
+EndFunc
+
+Func _Vanquisher_OnVanquishComplete($a_s_Phase = "")
+    UpdateVanquish()
+    CurrentAction("Vanquish complete" & $a_s_Phase & " — 0 foes remaining.")
+    If _IsCartoModeEnabled() Then
+        Sleep($CARTO_MODE_SLEEP)
+        Return False
+    EndIf
+    Return True
+EndFunc
+
+Func _Vanquisher_CheckVanquishDuringRoute(ByRef $a_h_Timer, $a_s_Phase)
+    If TimerDiff($a_h_Timer) < $CHECK_INTERVAL Then Return False
+    $a_h_Timer = TimerInit()
+    UpdateVanquish()
+    If Not _Vanquisher_IsVanquishComplete() Then Return False
+    Return _Vanquisher_OnVanquishComplete($a_s_Phase)
 EndFunc
 
 Func _IsCartoModeEnabled()
@@ -120,6 +120,10 @@ Func AggroMoveTo($x, $y, $s = "", $z = 1450)
 
 	Do
 		If $DeadOnTheRun Then ExitLoop
+		If _Vanquisher_IsVanquishComplete() Then
+			_Vanquisher_OnVanquishComplete(" (move)")
+			Return
+		EndIf
 		If $boolUseConset Then UseConset()
 		RndSleep(250)
 		$oldCoordsX = $coordsX
