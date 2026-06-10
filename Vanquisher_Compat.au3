@@ -479,11 +479,44 @@ Func GetLoggedCharNames()
 EndFunc
 
 Func GetFoesToKill()
+    If World_GetWorldContextPtr() = 0 Then Return -1
     Return World_GetWorldInfo("FoesToKill")
 EndFunc
 
 Func GetFoesKilled()
+    If World_GetWorldContextPtr() = 0 Then Return 0
     Return World_GetWorldInfo("FoesKilled")
+EndFunc
+
+Func GetAreaVanquished()
+    If Not Map_GetInstanceInfo("IsExplorable") Then Return False
+    If Not GetIsHardMode() Then Return False
+    Local $l_i_Remaining = GetFoesToKill()
+    If $l_i_Remaining < 0 Then Return False
+    Return $l_i_Remaining = 0
+EndFunc
+
+Func _Vanquisher_IsVanquishComplete()
+    Return GetAreaVanquished()
+EndFunc
+
+Global $g_h_Vanquisher_CheckAreaTimer = 0
+
+; Used by EOTN/NF map routes: exit when vanquish is done, or after waiting at the end point.
+Func CheckArea($aX, $aY, $a_i_TimeoutMs = 0)
+    If GetAreaVanquished() Then Return True
+
+    Local $l_t_Me = GetAgentByID(-2)
+    Local $l_f_X = DllStructGetData($l_t_Me, "X")
+    Local $l_f_Y = DllStructGetData($l_t_Me, "Y")
+    If ComputeDistance($l_f_X, $l_f_Y, $aX, $aY) >= 500 Then
+        $g_h_Vanquisher_CheckAreaTimer = 0
+        Return False
+    EndIf
+
+    If $g_h_Vanquisher_CheckAreaTimer = 0 Then $g_h_Vanquisher_CheckAreaTimer = TimerInit()
+    If $a_i_TimeoutMs > 0 And TimerDiff($g_h_Vanquisher_CheckAreaTimer) >= $a_i_TimeoutMs Then Return True
+    Return False
 EndFunc
 
 Func GetIsHardMode()
@@ -519,7 +552,11 @@ Func Dialog($a_i_DialogID)
 EndFunc
 
 Func DonateFaction($a_s_Faction)
-    Return Game_DonateFaction($a_s_Faction)
+    If StringLeft($a_s_Faction, 1) = 'k' Then
+        Return Core_SendPacket(0x10, $GC_I_HEADER_FACTION_DEPOSIT, 0, 0, $VANQUISHER_FACTION_DONATE_CHUNK)
+    Else
+        Return Core_SendPacket(0x10, $GC_I_HEADER_FACTION_DEPOSIT, 0, 1, $VANQUISHER_FACTION_DONATE_CHUNK)
+    EndIf
 EndFunc
 
 Func AddHero($a_i_HeroId)

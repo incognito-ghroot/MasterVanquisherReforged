@@ -1,3 +1,6 @@
-Make it reset after finishing
-Make it use consets
-Convert all maps to use an array of waypoints
+* Store Identification
+* Identify and Sell Items
+* Cartography Mode
+* Use Passage Scrolls / Stones
+* Use BU Items
+* Additional Inventory Management

@@ -55,6 +55,10 @@ $aChestID[21] = 6065 ; Margonite Chest
 $aChestID[22] = 7053 ; Demonic Chest
 $aChestID[23] = 8141 ; Locked Chest
 
+; Faction guild donation: 5k per deposit packet, start only once 10k+ is held
+Global Const $VANQUISHER_FACTION_DONATE_CHUNK = 5000
+Global Const $VANQUISHER_FACTION_DONATE_MIN = 10000
+
 ; Crash-safe file log path (set from GUI.au3 when the Trace file is created)
 Global $g_s_LogFile = @ScriptDir & "\Trace\Vanquisher.log"
 Global $g_h_EditText = 0

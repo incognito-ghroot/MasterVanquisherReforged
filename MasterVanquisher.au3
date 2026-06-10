@@ -439,33 +439,9 @@ While 1
 
 			;KURZICK AND LUXON DONATION
 			Switch $Title
-				Case "Archipelagos"
+				Case "Archipelagos", "BoreasSeabed", "GyalaHatchery", "MaishangHills", "MountQinkai", "RheasCrater", "SilentSurf", "UnwakingWaters"
 					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Luxon guild and you are also able to speak to the merchant in the outpost.")
-				Case "BoreasSeabed"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Luxon guild and you are also able to speak to the merchant in the outpost.")
-				Case "MaishangHills"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Luxon guild and you are also able to speak to the merchant in the outpost.")
-				Case "MountQinkai"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Luxon guild and you are also able to speak to the merchant in the outpost.")
-				Case "Waters"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Luxon guild and you are also able to speak to the merchant in the outpost.")
-				Case "Rhea"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Luxon guild and you are also able to speak to the merchant in the outpost.")
-				Case "Surf"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Luxon guild and you are also able to speak to the merchant in the outpost.")
-				Case "Arborstone"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Kurzick guild and you are also able to speak to the merchant in the outpost.")
-				Case "DrazachTicket"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Kurzick guild and you are also able to speak to the merchant in the outpost.")
-				Case "Ferndale"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Kurzick guild and you are also able to speak to the merchant in the outpost.")
-				Case "Melandru"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Kurzick guild and you are also able to speak to the merchant in the outpost.")
-				Case "MorostavTrail"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Kurzick guild and you are also able to speak to the merchant in the outpost.")
-				Case "Veil"
-					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Kurzick guild and you are also able to speak to the merchant in the outpost.")
-				Case "TheEternalGrove"
+				Case "Arborstone", "DrazachThicket", "Ferndale", "MelandrusHope", "MorostavTrail", "MourningVeilFalls", "TheEternalGrove"
 					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Kurzick guild and you are also able to speak to the merchant in the outpost.")
 			EndSwitch
 
@@ -494,6 +470,7 @@ While 1
 			EndIf
 
 			Sleep(3000)
+			UpdateVanquish()
 
 			Switch $Title
 				Case "Arborstone"
@@ -529,6 +506,12 @@ While 1
 			EndSwitch
 
 			VQ()
+			UpdateVanquish()
+			If GetAreaVanquished() Then
+				CurrentAction("Area fully vanquished this run.")
+			Else
+				CurrentAction("Run finished — " & GetFoesToKill() & " foes still remaining.")
+			EndIf
 
 			$NumberRun = $NumberRun +1
 		EndIf
@@ -541,6 +524,9 @@ WEnd
 Func FactionCheckKurzick()
 	CurrentAction("Checking faction")
 	RndSleep(250)
+	If $Bool_Donate Then
+		Return GetKurzickFaction() >= $VANQUISHER_FACTION_DONATE_MIN
+	EndIf
 	If GetKurzickFaction() > GetMaxKurzickFaction() - 20000 Then
 		Return True
 	Else
@@ -561,7 +547,7 @@ Func TurnInFactionKurzick()
 			CurrentAction("Donate")
 			DonateFaction("kurzick")
 			RndSleep(500)
-		Until GetKurzickFaction() < 5000
+		Until GetKurzickFaction() < $VANQUISHER_FACTION_DONATE_CHUNK
 	Else
 		CurrentAction("Donating Kurzick Faction for Guild")
 		Dialog(131)
@@ -580,7 +566,9 @@ EndFunc
 Func FactionCheckLuxon()
 	CurrentAction("Check Luxon point atm")
 	RndSleep(250)
-
+	If $Bool_Donate Then
+		Return GetLuxonFaction() >= $VANQUISHER_FACTION_DONATE_MIN
+	EndIf
 	If GetLuxonFaction() > GetMaxLuxonFaction() - 20000 Then
 		Return True
 	Else
@@ -599,9 +587,9 @@ Func TurnInFactionLuxon()
 	If $Bool_Donate Then
 		Do
 			CurrentAction("Donate")
-			DonateFaction(1)
+			DonateFaction("luxon")
 			RndSleep(250)
-		Until GetLuxonFaction() < 5000
+		Until GetLuxonFaction() < $VANQUISHER_FACTION_DONATE_CHUNK
 	Else
 		CurrentAction("Grabbing Jade Shards")
 		Dialog(131)
@@ -1314,6 +1302,11 @@ Func VQ()
 				AdlibUnRegister("CheckPartyDead")
 				AdlibUnRegister("DeldrimorPoint")
 		EndSwitch
+
+	UpdateVanquish()
+	If GetAreaVanquished() Then
+		_Vanquisher_OnVanquishComplete(" (run)")
+	EndIf
 
 EndFunc
 

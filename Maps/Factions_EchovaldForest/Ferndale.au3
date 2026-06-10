@@ -195,7 +195,7 @@ Func VQFerndale()
         EndIf
 
 		MoveandAggroVQ($aWaypoints)
-                Reverse($aWaypoints)
+		MoveAndAggroVQReverse($aWaypoints)
 
     EndIf
 EndFunc

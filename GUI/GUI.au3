@@ -360,7 +360,6 @@ $Gui_CartoMode = GUICtrlCreateCheckbox("CARTO MODE", 1184, 106, 97, 17)
 $Gui_Legio = GUICtrlCreateCheckbox("USE STONES", 1184, 130, 153, 17)
 $Gui_Bu = GUICtrlCreateCheckbox("USE BU", 1184, 154, 97, 17)
 $Gui_Conset = GUICtrlCreateCheckbox("USE CONSET", 1184, 178, 97, 17)
-$Gui_Donate = GUICtrlCreateCheckbox("DONATE", 1184, 202, 97, 17)
 $Gui_UseSkills = GUICtrlCreateCheckbox("USE SKILLS", 1184, 226, 97, 17)
 $Gui_OpenChests = GUICtrlCreateCheckbox("OPEN CHESTS", 1184, 250, 97, 17)
 
@@ -442,15 +441,44 @@ $gui_status_runs = GUICtrlCreateLabel("0", 1143, 552, 10, 17, $SS_RIGHT)
 
 
 GUISetOnEvent($GUI_EVENT_CLOSE, "gui_eventHandler")
+GUICtrlCreateGroup("", -99, -99, 1, 1)
+$Gui_Donate = GUICtrlCreateCheckbox("DONATE FACTION", 1184, 202, 121, 17)
+GUICtrlSetTip($Gui_Donate, "Donate Luxon/Kurzick faction to your guild. Only used on Echovald Forest and Jade Sea maps.")
 GUICtrlSetState($Gui_Id_and_sell, $GUI_UNCHECKED)
 GUICtrlSetState($Gui_Store_unid, $GUI_UNCHECKED)
 GUICtrlSetState($Gui_HM_enable, $GUI_CHECKED)
 GUICtrlSetState($Gui_UseSkills, $GUI_CHECKED)
-GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
+GUICtrlSetState($Gui_Donate, $GUI_ENABLE)
+_Vanquisher_UpdateDonateCheckbox()
 GUISetState(@SW_SHOW)
 RefreshCharNames()
 
 #EndRegion ### END Koda GUI section ###
+
+Func _Vanquisher_IsFactionMapSelected()
+	Return BitAND(GUICtrlRead($Radio_Arborstone), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_DrazachThicket), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_Ferndale), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_MelandrusHope), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_MorostavTrail), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_MourningVeilFalls), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_TheEternalGrove), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_Archipelagos), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_BoreasSeabed), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_GyalaHatchery), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_MaishangHills), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_MountQinkai), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_RheasCrater), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_SilentSurf), $GUI_CHECKED) = $GUI_CHECKED _
+		Or BitAND(GUICtrlRead($Radio_UnwakingWaters), $GUI_CHECKED) = $GUI_CHECKED
+EndFunc
+
+Func _Vanquisher_UpdateDonateCheckbox()
+	GUICtrlSetState($Gui_Donate, $GUI_ENABLE)
+	If Not _Vanquisher_IsFactionMapSelected() Then
+		GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
+	EndIf
+EndFunc
 
 func gui_eventHandler()
 	switch (@GUI_CtrlId)
@@ -464,435 +492,8 @@ func gui_eventHandler()
 			GUICtrlSetState($COMBO_HERO5, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
 			GUICtrlSetState($COMBO_HERO6, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
 			GUICtrlSetState($COMBO_HERO7, $Bool_AddHeroes ? $GUI_ENABLE : $GUI_DISABLE)
-		;ASCALON
-		Case $Radio_AscalonFoothills
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_DiessaLowlands
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_DragonsGullet
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_EasternFrontier
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_FlameTempleCorridor
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_CHECKED)
-		Case $Radio_OldAscalon
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_PockmarkFlats
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_RegentValley
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheBreach
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;NORTH SHIVERPEAKS
-		Case $Radio_AnvilRock
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_DeldrimorBowl
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_GriffonsMouth
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_IronHorseMine
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TravelersVale
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;MAGUUMA
-		Case $Radio_DryTop
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_EttinsBack
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MamnoonLagoon
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_ReedBog
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SageLands
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_Silverwood
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TangleRoot
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheFalls
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;CRYSTAL DESERT
-		Case $Radio_DivinersAscent
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_ProphetsPath
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SaltFlats
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SkywardReach
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheAridSea
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheScar
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_CHECKED)
-		Case $Radio_VultureDrifts
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;KRYTA
-		Case $Radio_CursedLands
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_KessexPeak
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MajestysRest
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_NeboTerrace
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_NorthKrytaProvince
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_ScoundrelsRise
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_StingrayStrand
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TalmarkWilderness
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TearsoftheFallen
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheBlackCurtain
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TwinSerpentLakes
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_WatchtowerCoast
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;SOUTHERN
-		Case $Radio_DreadnoughtsDrift
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_FrozenForest
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_GrenthsFootprint
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_IceFloe
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_Icedome
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_LornarsPass
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MineralSprings
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SnakeDance
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SpearheadPeak
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TalusChute
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TascasDemise
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_WitmansFolly
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;RING OF FIRE
-		Case $Radio_PerditionRock
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;SHING JEA
-		Case $Radio_HaijuLagoon
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_JayaBluffs
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_KinyaProvince
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MinisterChosEstate
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_PanjiangPeninsula
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SaoshangTrail
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SunquaVale
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_ZenDaijun
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;KAINENG CITY
-		Case $Radio_BukdekByway
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_NahpuiQuarter
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_PongmeiValley
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_RaisuPalace
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_ShadowsPassage
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_ShenzunTunnels
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SunjiangDistrict
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TahnnakiTemple
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_WajjunBazaar
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_XaquangSkyway
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-
-		;ECHOVALD FOREST
-		Case $Radio_Arborstone
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_DrazachThicket
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_Ferndale
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MelandrusHope
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MorostavTrail
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MourningVeilFalls
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheEternalGrove
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-
-		;JADE SEA
-		Case $Radio_Archipelagos
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_BoreasSeabed
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_GyalaHatchery
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MaishangHills
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MountQinkai
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_RheasCrater
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SilentSurf
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_UnwakingWaters
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;ISTAN
-		Case $Radio_CliffsOfDohjok
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_FahranurTheFirstCity
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_IssnurIsles
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_LahtendaBog
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MehtaniKeys
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_PlainsofJarin
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_ZehlonReach
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;KOURNA
-		Case $Radio_ArkjokWard
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_BahdokCaverns
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_BarbarousShore
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_DejarinEstate
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_GandaraTheMoonFortress
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_JahaiBluffs
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MargaCoast
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SunwardMarches
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheFloodplainOfMahnkelon
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TuraisProcession
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;VABBI
-		Case $Radio_ForumHighlands
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_GardenOfSeborhin
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_HoldingsOfChokhin
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_ResplendentMakuun
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheHiddenCityOfAhdashim
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheMirrorOfLyss
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_VehjinMines
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_VehtendiValley
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_WildernessOfBahdza
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_YatendiCanyons
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;DESOLATION
-		Case $Radio_CrystalOverlook
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_JokosDomain
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_PoisonedOutcrops
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheAlkaliPan
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheRupturedHeart
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheShatteredRavines
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_TheSulfurousWastes
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;CHARR
-		Case $Radio_DaladaUplands
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_GrothmarWardowns
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SacnothValley
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;NORN
-		Case $Radio_BjoraMarches
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_DrakkarLake
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_IceCliffChasms
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_JagaMoraine
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_NorrhartDomains
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_VarajarFells
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		;ASURA
-		Case $Radio_ArborBay
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_AlcaziaTangle
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_MagusStones
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_RivenEarth
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_SparkflySwamp
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-		Case $Radio_VerdantCascades
-			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Donate, $GUI_UNCHECKED)
-
+		Case $Radio_AscalonFoothills To $Radio_VerdantCascades
+			_Vanquisher_UpdateDonateCheckbox()
 
 		Case $GUI_EVENT_CLOSE
 			exit
@@ -1184,6 +785,19 @@ func gui_eventHandler()
 				EndIf
 			EndIf
 
+			$Bool_Donate = False
+			$Bool_IdAndSell = False
+			$Bool_Store = False
+			$Bool_HM = False
+			$Bool_OpenChests = False
+			$Bool_Conset = False
+			If BitAND(GUICtrlRead($Gui_Id_and_sell), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_IdAndSell = True
+			If BitAND(GUICtrlRead($Gui_Store_unid), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Store = True
+			If BitAND(GUICtrlRead($Gui_HM_enable), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_HM = True
+			If BitAND(GUICtrlRead($Gui_Donate), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Donate = True
+			If BitAND(GUICtrlRead($Gui_OpenChests), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_OpenChests = True
+			If BitAND(GUICtrlRead($Gui_Conset), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Conset = True
+
 			GUICtrlSetState($Radio_AscalonFoothills, $GUI_DISABLE)
 			GUICtrlSetState($Radio_DiessaLowlands, $GUI_DISABLE)
 			GUICtrlSetState($Radio_DragonsGullet, $GUI_DISABLE)
@@ -1330,20 +944,13 @@ func gui_eventHandler()
 			GUICtrlSetState($Start, $GUI_DISABLE)
 			GUICtrlSetState($txtName, $GUI_DISABLE)
 
-			If BitAND(GUICtrlRead($Gui_Id_and_sell), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_IdAndSell = True
-			If BitAND(GUICtrlRead($Gui_Store_unid), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Store = True
-			If BitAND(GUICtrlRead($Gui_HM_enable), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_HM = True
-			If BitAND(GUICtrlRead($Gui_Donate), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Donate = True
-			If BitAND(GUICtrlRead($Gui_OpenChests), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_OpenChests = True
-			If BitAND(GUICtrlRead($Gui_Conset), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Conset = True
-
 			$NumberRun = 0
 			$RunSuccess = 0
 			$boolrun = True
 
 			$sGW = "Guild Wars - " & GUICtrlRead($txtName)
 			AdlibRegister("ReduceMemory", 20000)
-			AdlibRegister("UpdateVanquish", 10000)
+			AdlibRegister("UpdateVanquish", 5000)
 	endswitch
 endfunc
 
@@ -1379,8 +986,19 @@ Func RefreshCharNames()
 EndFunc
 
 Func UpdateVanquish()
-	GUICtrlSetData($Tot_Killed, GetFoesKilled())
-	GUICtrlSetData($Tot_Missing, GetFoesToKill())
+	Local $l_i_Killed = GetFoesKilled()
+	Local $l_i_Missing = GetFoesToKill()
+	GUICtrlSetData($Tot_Killed, $l_i_Killed)
+	If $l_i_Missing < 0 Then
+		GUICtrlSetData($Tot_Missing, "?")
+		GUICtrlSetData($Tot_Total, "?")
+	ElseIf $l_i_Missing = 0 And GetAreaVanquished() Then
+		GUICtrlSetData($Tot_Missing, "0")
+		GUICtrlSetData($Tot_Total, $l_i_Killed)
+	Else
+		GUICtrlSetData($Tot_Missing, $l_i_Missing)
+		GUICtrlSetData($Tot_Total, $l_i_Killed + $l_i_Missing)
+	EndIf
 EndFunc
 	
 

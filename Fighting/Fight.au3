@@ -7,6 +7,7 @@ Func Fight($x, $s = "")
 
 	Do
 		If GetPartyDead() Or $DeadOnTheRun Then ExitLoop
+		If _Vanquisher_IsVanquishComplete() Then ExitLoop
 		If GetNumberOfFoesInRangeOfAgent(-2, $x) = 0 Then ExitLoop
 		If TimerDiff($tDeadlock) > 120000 Then ExitLoop
 
@@ -54,6 +55,7 @@ Func Fight($x, $s = "")
 		EndIf
 	Until $DeadOnTheRun Or GetNumberOfFoesInRangeOfAgent(-2, $x) = 0 Or TimerDiff($tDeadlock) > 120000
 
+	UpdateVanquish()
 	CurrentAction("Combat ended after: " & StringFormat("%d", TimerDiff($tDeadlock) / 1000) & "s")
 
 	If GetHealth(-2) < 2400 Then UseSkill(7, -2)

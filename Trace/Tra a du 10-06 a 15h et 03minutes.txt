@@ -1,0 +1,5 @@
+
+[15:04:06] [INFO] Travel Attempt #1
+[15:04:25] [INFO] Travel Attempt #1
+[15:04:38] [INFO] Travel Attempt #1
+[15:04:42] [INFO] Travel Attempt #1
