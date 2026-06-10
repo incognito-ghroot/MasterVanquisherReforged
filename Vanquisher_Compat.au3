@@ -519,6 +519,30 @@ Func CheckArea($aX, $aY, $a_i_TimeoutMs = 0)
     Return False
 EndFunc
 
+Func _Vanquisher_ReturnToOutpost()
+    If Not Map_GetInstanceInfo("IsExplorable") Then Return True
+
+    CurrentAction("Returning to outpost after vanquish.")
+    Map_ReturnToOutpost()
+    WaitForLoad()
+
+    Local $l_i_Tries = 0
+    While Map_GetInstanceInfo("IsExplorable") And $l_i_Tries < 3
+        Chat_SendChat("resign", "/")
+        Sleep(3000)
+        WaitForLoad()
+        $l_i_Tries += 1
+    WEnd
+
+    If Map_GetInstanceInfo("IsExplorable") Then
+        CurrentAction("Still in explorable — try /resign manually.")
+        Return False
+    EndIf
+
+    CurrentAction("Back in outpost.")
+    Return True
+EndFunc
+
 Func GetIsHardMode()
     Return Party_GetPartyContextInfo("IsHardMode")
 EndFunc

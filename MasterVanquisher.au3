@@ -445,8 +445,9 @@ While 1
 					If $Bool_Donate Then MsgBox(48, "Warning", "You tick donate button, be sure you are in a Kurzick guild and you are also able to speak to the merchant in the outpost.")
 			EndSwitch
 
+		EndIf ; first-run setup ($NumberRun = 0)
 
-			CurrentAction("Begin run number " & $NumberRun)
+		CurrentAction("Begin run number " & $NumberRun)
 
 			If CheckIfInventoryIsFull() then SellItemToMerchant()
 
@@ -509,12 +510,14 @@ While 1
 			UpdateVanquish()
 			If GetAreaVanquished() Then
 				CurrentAction("Area fully vanquished this run.")
+				If GUICtrlRead($Gui_CartoMode) <> $GUI_CHECKED Then
+					_Vanquisher_ReturnToOutpost()
+				EndIf
 			Else
 				CurrentAction("Run finished — " & GetFoesToKill() & " foes still remaining.")
 			EndIf
 
 			$NumberRun = $NumberRun +1
-		EndIf
 
 		Sleep(50)
 
