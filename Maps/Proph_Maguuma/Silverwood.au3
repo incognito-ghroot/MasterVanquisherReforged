@@ -107,9 +107,6 @@ Func VQSilverwood()
 		, [4509, 17446, " ", $vqrange] _
 		, [3072, 16588, " ", $vqrange] _
 		, [162, 18220, " ", $vqrange] ]
-		
-		MoveandAggroVQ($aWaypoints)
-		MoveandAggroVQReverse($aWaypoints)
-
+		MoveandAggroVQFullRoute($aWaypoints)
 	EndIf
 EndFunc

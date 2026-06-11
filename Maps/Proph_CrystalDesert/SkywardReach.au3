@@ -13,8 +13,6 @@ Func VQSkywardReach()
           , [-620, -14121, " ", $vqrange] _
           , [2951, -16579, " ", $vqrange] _
           , [5878, -17416, " ", $vqrange] ]
-		
-		MoveandAggroVQ($aWaypoints)
-      MoveandAggroVQReverse($aWaypoints)
+		MoveandAggroVQFullRoute($aWaypoints)
    EndIf		
 EndFunc

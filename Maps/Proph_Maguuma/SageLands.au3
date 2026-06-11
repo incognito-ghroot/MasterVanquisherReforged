@@ -100,10 +100,6 @@ Func VQSageLands()
 		, [20551, 11049, " ", $vqrange] _
 		, [22868, 8518, " ", $vqrange] _
 		, [27730, 9942, " ", $vqrange] ]
-
-
-
-		MoveandAggroVQ($aWaypoints)
-        MoveandAggroVQReverse($aWaypoints)
+		MoveandAggroVQFullRoute($aWaypoints)
     EndIf
 EndFunc

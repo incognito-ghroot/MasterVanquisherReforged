@@ -54,9 +54,6 @@ Func VQTravelersVale()
 		, [2915, 4653, " ", $vqrange] _
 		, [1299, 3860, " ", $vqrange] _
 		, [5094, 7017, " ", $vqrange] ]
-			
-		MoveandAggroVQ($aWaypoints)
-		MoveandAggroVQReverse($aWaypoints)
-        
+		MoveandAggroVQFullRoute($aWaypoints)
     EndIf
 EndFunc

@@ -70,9 +70,6 @@ Func VQHaijuLagoon()
 		, [-5427, 9048, " ", $vqrange] _
 		, [-68, 9818, " ", $vqrange] _
 		, [3736, 7831, " ", $vqrange] ]			
-
-		MoveandAggroVQ($aWaypoints)
-		MoveandAggroVQReverse($aWaypoints)
-        
+		MoveandAggroVQFullRoute($aWaypoints)
     EndIf
 EndFunc

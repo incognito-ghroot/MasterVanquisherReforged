@@ -84,9 +84,6 @@ Func VQPongmeiValley()
 		, [-7448, 6511, " ", $vqrange] _
 		, [-8561, 4527, " ", $vqrange] _
 		, [-6338.81, 2517.30, " ", $vqrange] ]
-
-		MoveandAggroVQ($aWaypoints)
-          	MoveandAggroVQReverse($aWaypoints)
-
+		MoveandAggroVQFullRoute($aWaypoints)
     EndIf
 EndFunc

@@ -101,8 +101,6 @@ Func VQPerditionRock()
 			, [14825 , 3405, " ", $vqrange] _ 
 			, [13079 , 3700, " ", $vqrange] _ 
 			, [9413 , 3352, " ", $vqrange] ]
-
-		MoveandAggroVQ($aWaypoints)
-		MoveandAggroVQReverse($aWaypoints)
+		MoveandAggroVQFullRoute($aWaypoints)
 	EndIf
 EndFunc

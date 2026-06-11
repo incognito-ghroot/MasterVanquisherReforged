@@ -100,10 +100,6 @@ Func VQPanjiangPeninsula()
 		, [-316, 7902, " ", $vqrange] _
 		, [-1545, 6557, " ", $vqrange] _
 		, [2981, 4278, " ", $vqrange] ]
-				
-	
-		MoveandAggroVQ($aWaypoints)
-          	MoveandAggroVQReverse($aWaypoints)
-
+		MoveandAggroVQFullRoute($aWaypoints)
     EndIf
 EndFunc

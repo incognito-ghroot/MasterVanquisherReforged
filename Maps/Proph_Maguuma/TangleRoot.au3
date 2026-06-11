@@ -107,8 +107,6 @@ Func VQTangleRoot()
 		, [71, 242, " ", $vqrange] _
 		, [3307, 1051, " ", $vqrange] _
 		, [4876, -349, " ", $vqrange] ]	
-		
-		MoveandAggroVQ($aWaypoints)
-		MoveandAggroVQReverse($aWaypoints)
+		MoveandAggroVQFullRoute($aWaypoints)
 	EndIf
 EndFunc

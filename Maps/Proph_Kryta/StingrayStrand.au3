@@ -107,7 +107,6 @@ Func VQStingrayStrand()
 			, [2589.08, -12034.23, " ", $vqrange] _ 
 			, [4486.16, -12001.16, " ", $vqrange] _ 
 			, [7514.00, -13765.00, " ", $vqrange] ]
-		MoveandAggroVQ($aWaypoints)
-		MoveandAggroVQReverse($aWaypoints)
+		MoveandAggroVQFullRoute($aWaypoints)
     Endif
 EndFunc

@@ -87,10 +87,6 @@ Func VQZenDaijun()
 		, [-9602, 3877, " ", $vqrange] _
 		, [-5585, 3445, " ", $vqrange] _
 		, [-8017, 6339, " ", $vqrange] ]			
-
-		
-		MoveandAggroVQ($aWaypoints)
-          	MoveandAggroVQReverse($aWaypoints)
-
+		MoveandAggroVQFullRoute($aWaypoints)
     EndIf
 EndFunc

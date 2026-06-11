@@ -116,10 +116,7 @@ Func VQRegentValley()
 		, [-6728, 5698, " ", $vqrange] _
 		, [-6347, 6169, " ", $vqrange] _
 		, [-11819, 9584, " ", $vqrange] ]
-
-		MoveandAggroVQ($aWaypoints)
-      MoveandAggroVQReverse($aWaypoints)
-
+		MoveandAggroVQFullRoute($aWaypoints)
 	EndIf
 EndFunc
 

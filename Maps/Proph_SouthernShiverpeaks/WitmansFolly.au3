@@ -75,9 +75,6 @@ Func VQWitmansFolly()
 		, [1385 , 7822, " ", $vqrange] _ 
 		, [-904 , 8688, " ", $vqrange] _ 
 		, [-3215 , 8688, " ", $vqrange] ]
-
-		MoveandAggroVQ($aWaypoints)
-		MoveandAggroVQReverse($aWaypoints)
-        
+		MoveandAggroVQFullRoute($aWaypoints)
     EndIf
 EndFunc
