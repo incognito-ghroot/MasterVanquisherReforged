@@ -82,6 +82,22 @@ Func _Vanquisher_GWIsRunning()
     Return _Vanquisher_CountGWClients() > 0
 EndFunc
 
+Func _Vanquisher_IsWine()
+    Local $l_a_Wine = DllCall("ntdll.dll", "str", "wine_get_version")
+    Return Not @error And IsArray($l_a_Wine) And $l_a_Wine[0] <> ""
+EndFunc
+
+Func _Vanquisher_GetWinePrefix()
+    Local $l_s_Prefix = EnvGet("WINEPREFIX")
+    If $l_s_Prefix = "" Then Return "unknown"
+    Return $l_s_Prefix
+EndFunc
+
+Func _Vanquisher_PrefixHint()
+    If Not _Vanquisher_IsWine() Then Return ""
+    Return " Wine prefix: " & _Vanquisher_GetWinePrefix() & "."
+EndFunc
+
 Func Gwen_GetLoggedCharNames()
     Local $l_s_Names = ""
 
@@ -103,6 +119,18 @@ Func Gwen_GetLoggedCharNames()
         EndIf
     Next
 
+    Return $l_s_Names
+EndFunc
+
+Func Gwen_GetCharNamesFromWindowsOnly()
+    Local $l_s_Names = ""
+    Local $l_a_Wins = WinList("[CLASS:" & $GC_S_CLASS_DX_WINDOW & "]")
+    For $l_i_Idx = 1 To $l_a_Wins[0][0]
+        Local $l_s_Title = $l_a_Wins[$l_i_Idx][0]
+        If StringLeft($l_s_Title, 12) = "Guild Wars -" Then
+            _Gwen_AppendCharName($l_s_Names, StringMid($l_s_Title, 14))
+        EndIf
+    Next
     Return $l_s_Names
 EndFunc
 

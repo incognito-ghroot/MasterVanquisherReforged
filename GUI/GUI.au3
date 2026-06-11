@@ -445,8 +445,16 @@ GUICtrlSetState($Gui_HM_enable, $GUI_CHECKED)
 GUICtrlSetState($Gui_UseSkills, $GUI_CHECKED)
 GUICtrlSetState($Gui_Donate, $GUI_ENABLE)
 _Vanquisher_UpdateDonateCheckbox()
-If _Vanquisher_GWIsRunning() Then RefreshCharNames()
 GUISetState(@SW_SHOW)
+Local $l_s_StartupNames = Gwen_GetCharNamesFromWindowsOnly()
+If $l_s_StartupNames <> "" Then
+	GUICtrlSetData($txtName, $l_s_StartupNames)
+	CurrentAction("Characters: " & StringReplace($l_s_StartupNames, "|", ", "))
+ElseIf _Vanquisher_CountGWClients() > 0 Then
+	CurrentAction("Guild Wars detected — click R to load characters." & _Vanquisher_PrefixHint())
+Else
+	CurrentAction("Start Guild Wars, log in, then click R." & _Vanquisher_PrefixHint())
+EndIf
 
 #EndRegion ### END Koda GUI section ###
 
@@ -947,12 +955,8 @@ func gui_eventHandler()
 	endswitch
 endfunc
 
-Func _Vanquisher_IsWine()
-	Local $l_a_Wine = DllCall("ntdll.dll", "str", "wine_get_version")
-	Return Not @error And IsArray($l_a_Wine) And $l_a_Wine[0] <> ""
-EndFunc
-
 Func RefreshCharNames()
+	Local $l_s_Hint = _Vanquisher_PrefixHint()
 	Local $l_s_Names = GetLoggedCharNames()
 
 	If $l_s_Names <> "" Then
@@ -963,14 +967,10 @@ Func RefreshCharNames()
 	EndIf
 
 	Local $l_i_GWCount = _Vanquisher_CountGWClients()
-	Local $l_s_Hint = ""
-	If _Vanquisher_IsWine() Then
-		$l_s_Hint = " Use the same WINEPREFIX as Guild Wars (e.g. start_vanquisher.sh 4 if GW runs on gw4)."
-	EndIf
 
 	If $l_i_GWCount = 0 Then
 		GUICtrlSetData($txtName, "")
-		CurrentAction("No Guild Wars client found. Start GW, log in, then click R." & $l_s_Hint)
+		CurrentAction("No Guild Wars client found. Use the Master Vanquisher desktop icon (gw4)." & $l_s_Hint)
 		Return
 	EndIf
 
