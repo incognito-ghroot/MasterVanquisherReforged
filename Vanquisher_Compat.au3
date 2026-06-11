@@ -436,6 +436,25 @@ Func UseItem($a_v_Item)
     Return Item_UseItem($a_v_Item)
 EndFunc
 
+Func _Vanquisher_UseFirstInventoryItemByModelIDs($a_a_ModelIDs)
+    If GetPartyDead() Then Return False
+    For $l_i_Bag = 1 To 4
+        For $l_i_Slot = 1 To Item_GetBagInfo($l_i_Bag, "Slots")
+            Local $l_p_Item = Item_GetItemBySlot($l_i_Bag, $l_i_Slot)
+            If $l_p_Item = 0 Then ContinueLoop
+            Local $l_i_ModelID = Item_GetItemInfoByPtr($l_p_Item, "ModelID")
+            For $l_i_Idx = 0 To UBound($a_a_ModelIDs) - 1
+                If $l_i_ModelID = $a_a_ModelIDs[$l_i_Idx] Then
+                    Item_UseItem($l_p_Item)
+                    RndSleep(750)
+                    Return True
+                EndIf
+            Next
+        Next
+    Next
+    Return False
+EndFunc
+
 Func GetEffectTimeRemaining($a_i_EffectID, $a_i_Agent = -2)
     Return Agent_GetAgentEffectInfo($a_i_Agent, $a_i_EffectID, "TimeRemaining")
 EndFunc

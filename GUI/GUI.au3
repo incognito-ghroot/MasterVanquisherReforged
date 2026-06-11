@@ -4,7 +4,7 @@ Global $NumberRun = 0
 global $boolrun = False
 Global $coords[2]
 Global $Title, $sGW
-Global $Bool_Donate = False, $Bool_IdAndSell = False, $Bool_HM = False, $Bool_Store = False, $Bool_AddHeroes = False
+Global $Bool_Donate = False, $Bool_HM = False, $Bool_AddHeroes = False, $Bool_Bu = False, $Bool_Stones = False
 Global $Bool_OpenChests = False, $Bool_Conset = False
 Global $File = @ScriptDir & "\Trace\Tra a du " & @MDAY & "-" & @MON & " a " & @HOUR & "h et " & @MIN & "minutes.txt"
 If Not FileExists(@ScriptDir & "\Trace") Then DirCreate(@ScriptDir & "\Trace")
@@ -352,16 +352,13 @@ $FARSHIVERPEAKS = GUICtrlCreateGroup("FAR SHIVERPEAKS", 780, 84, 185, 121)
 ;GENERAL OPTIONS
 GUICtrlCreateGroup("", -99, -99, 1, 1)
 GUICtrlSetOnEvent(-1, "gui_eventHandler")
-$GENERAL = GUICtrlCreateGroup("GENERAL CONFIGURATOR", 1168, 10, 185, 289)
+$GENERAL = GUICtrlCreateGroup("GENERAL CONFIGURATOR", 1168, 10, 185, 200)
 $Gui_HM_enable = GUICtrlCreateCheckbox("HM", 1184, 34, 49, 17)
-$Gui_Store_unid = GUICtrlCreateCheckbox("STORE UNID", 1184, 58, 121, 17)
-$Gui_Id_and_sell = GUICtrlCreateCheckbox("ID AND SELL", 1184, 82, 115, 17)
-$Gui_CartoMode = GUICtrlCreateCheckbox("CARTO MODE", 1184, 106, 97, 17)
-$Gui_Legio = GUICtrlCreateCheckbox("USE STONES", 1184, 130, 153, 17)
-$Gui_Bu = GUICtrlCreateCheckbox("USE BU", 1184, 154, 97, 17)
-$Gui_Conset = GUICtrlCreateCheckbox("USE CONSET", 1184, 178, 97, 17)
-$Gui_UseSkills = GUICtrlCreateCheckbox("USE SKILLS", 1184, 226, 97, 17)
-$Gui_OpenChests = GUICtrlCreateCheckbox("OPEN CHESTS", 1184, 250, 97, 17)
+$Gui_Legio = GUICtrlCreateCheckbox("USE STONES", 1184, 58, 153, 17)
+$Gui_Bu = GUICtrlCreateCheckbox("USE BU", 1184, 82, 97, 17)
+$Gui_Conset = GUICtrlCreateCheckbox("USE CONSET", 1184, 106, 97, 17)
+$Gui_UseSkills = GUICtrlCreateCheckbox("USE SKILLS", 1184, 130, 97, 17)
+$Gui_OpenChests = GUICtrlCreateCheckbox("OPEN CHESTS", 1184, 154, 97, 17)
 
 ;VANQUISH INFO
 $VANQUISH = GUICtrlCreateGroup("VANQUISH", 1168, 301, 185, 81)
@@ -442,10 +439,8 @@ $gui_status_runs = GUICtrlCreateLabel("0", 1143, 552, 10, 17, $SS_RIGHT)
 
 GUISetOnEvent($GUI_EVENT_CLOSE, "gui_eventHandler")
 GUICtrlCreateGroup("", -99, -99, 1, 1)
-$Gui_Donate = GUICtrlCreateCheckbox("DONATE FACTION", 1184, 202, 121, 17)
+$Gui_Donate = GUICtrlCreateCheckbox("DONATE FACTION", 1184, 178, 121, 17)
 GUICtrlSetTip($Gui_Donate, "Donate Luxon/Kurzick faction to your guild. Only used on Echovald Forest and Jade Sea maps.")
-GUICtrlSetState($Gui_Id_and_sell, $GUI_UNCHECKED)
-GUICtrlSetState($Gui_Store_unid, $GUI_UNCHECKED)
 GUICtrlSetState($Gui_HM_enable, $GUI_CHECKED)
 GUICtrlSetState($Gui_UseSkills, $GUI_CHECKED)
 GUICtrlSetState($Gui_Donate, $GUI_ENABLE)
@@ -786,17 +781,17 @@ func gui_eventHandler()
 			EndIf
 
 			$Bool_Donate = False
-			$Bool_IdAndSell = False
-			$Bool_Store = False
 			$Bool_HM = False
 			$Bool_OpenChests = False
 			$Bool_Conset = False
-			If BitAND(GUICtrlRead($Gui_Id_and_sell), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_IdAndSell = True
-			If BitAND(GUICtrlRead($Gui_Store_unid), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Store = True
+			$Bool_Bu = False
+			$Bool_Stones = False
 			If BitAND(GUICtrlRead($Gui_HM_enable), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_HM = True
 			If BitAND(GUICtrlRead($Gui_Donate), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Donate = True
 			If BitAND(GUICtrlRead($Gui_OpenChests), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_OpenChests = True
 			If BitAND(GUICtrlRead($Gui_Conset), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Conset = True
+			If BitAND(GUICtrlRead($Gui_Bu), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Bu = True
+			If BitAND(GUICtrlRead($Gui_Legio), $GUI_CHECKED) = $GUI_CHECKED Then $Bool_Stones = True
 
 			GUICtrlSetState($Radio_AscalonFoothills, $GUI_DISABLE)
 			GUICtrlSetState($Radio_DiessaLowlands, $GUI_DISABLE)
@@ -934,8 +929,6 @@ func gui_eventHandler()
 			GUICtrlSetState($Radio_RivenEarth, $GUI_DISABLE)
 			GUICtrlSetState($Radio_SparkflySwamp, $GUI_DISABLE)
 			GUICtrlSetState($Radio_VerdantCascades, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Id_and_sell, $GUI_DISABLE)
-			GUICtrlSetState($Gui_Store_unid, $GUI_DISABLE)
 			GUICtrlSetState($Gui_HM_enable, $GUI_DISABLE)
 			GUICtrlSetState($Gui_Donate, $GUI_DISABLE)
 			GUICtrlSetState($Gui_Bu, $GUI_DISABLE)
@@ -1019,152 +1012,6 @@ Func CurrentAction($TEXT)
 	_GUICtrlEdit_AppendText($StatusLabel, @CRLF & "[" & @HOUR & ":" & @MIN & "] " & $TEXT)
 	_GUICtrlEdit_Scroll($StatusLabel, 1)
 EndFunc   ;==>CurrentAction
-
-;############################
-;##### MIGHT BE USELESS #####
-;############################
-
-Func SellItemToMerchant()
-	If $Bool_Store Then
-		CurrentAction("Storing Gold Unid")
-		StoreGolds()
-		Sleep(1000)
-	EndIf
-	If $Bool_IdAndSell Then
-		CurrentAction("Going to merchant")
-		If $Title = "ShadowsPassage" Then
-			$merchant = GetNearestNPCToCoords(-10704, 6863)
-		ElseIf $Title = "RaisuPalace" Then
-			$merchant = GetNearestNPCToCoords(-10867, -1943)
-		ElseIf $Title = "Archipelagos" Then
-			$merchant = GetNearestNPCToCoords(7717, -2141)
-		ElseIf $Title = "BoreasSeabed" Then
-			$merchant = GetNearestNPCToCoords(1662,-5206)
-		ElseIf $Title = "MountQinkai" Then
-			$merchant = GetNearestNPCToCoords(-4248, 11260)
-		ElseIf $Title = "Gyala" Then
-			$merchant = GetNearestNPCToCoords(12296, -20258)
-		ElseIf $Title = "Rhea" Then
-			$merchant = GetNearestNPCToCoords(-2080, 6960)
-		ElseIf $Title = "Waters" Then
-			$merchant = GetNearestNPCToCoords(3926, 3652)
-		ElseIf $Title = "Norrhart" Then
-			$merchant = GetNearestNPCToCoords(-4318, 11298)
-		ElseIf $Title = "ArborBay" Then
-			$merchant = GetNearestNPCToCoords(-1795, -2482)
-		ElseIf $Title = "AlcaziaTangle" Then
-			$merchant = GetNearestNPCToCoords(498, 1297)
-		ElseIf $Title = "Stones" Then
-			$merchant = GetNearestNPCToCoords(-21032,10979)
-		ElseIf $Title = "Riven" Then
-			$merchant = GetNearestNPCToCoords(-19166, 17980)
-		ElseIf $Title = "Swamp" Then
-			$merchant = GetNearestNPCToCoords(1598, -951)
-		ElseIf $Title = "Cascades" Then
-			$merchant = GetNearestNPCToCoords(-21050, 10920)
-		ElseIf $Title = "DaladaUplands" Then
-			$merchant = GetNearestNPCToCoords(-4318, 11298)
-		ElseIf $Title = "GrothmarWardowns" Then
-			$merchant = GetNearestNPCToCoords(-1795, -2482)
-		ElseIf $Title = "SacnothValley" Then
-			$merchant = GetNearestNPCToCoords(498, 1297)
-
-		EndIf
-		Sleep(1000)
-		GoToNPC($merchant)
-		Sleep(1000)
-		If $Title = "Bjora" Then
-			Sleep(2000)
-			Dialog(0x0000007F)
-		EndIf
-		BuyIDKit()
-		Sleep(1000)
-		CurrentAction("Ident inventory")
-		Ident(1)
-		Ident(2)
-		Ident(3)
-		Ident(4)
-		CurrentAction("Sell inventory")
-		Sell(1)
-		Sell(2)
-		Sell(3)
-		Sell(4)
-	EndIf
-EndFunc  ;==>SellItemToMerchant
-
-Func GetExtraItemInfo($aitem)
-	;Use GetRarity() instead...
-    If IsDllStruct($aitem) = 0 Then $aAgent = GetItemByItemID($aitem)
-    $lItemExtraPtr = DllStructGetData($aitem, "namestring")
-
-    ;DllCall($mHandle[0], 'int', 'ReadProcessMemory', 'int', $mHandle[1], 'int', $lItemExtraPtr, 'ptr', $lItemExtraStructPtr, 'int', $lItemExtraStructSize, 'int', '')
-    Return $lItemExtraStruct
-EndFunc   ;==>GetExtraItemInfo
-
-Func GoMerchant($id_merchant, $xmerchant, $ymerchant)
-	Local $lNearestAgent, $lNearestDistance = 100000000
-	Local $lDistance, $lAgentToCompare
-
-	For $i = 1 To GetMaxAgents()
-		$lAgentToCompare = GetAgentByID($i)
-		If DllStructGetData($lAgentToCompare, 'PlayerNumber') <> $id_merchant then ContinueLoop
-		Sleep(150)
-		ChangeTarget($lAgentToCompare)
-		Sleep(150)
-		GoNPC($lAgentToCompare)
-		ExitLoop
-	Next
-	Do
-		Sleep(100)
-	Until
-	($xmerchant, $ymerchant)
-	Sleep(2000)
-EndFunc
-
-Func StoreGolds()
-	GoldIs(1)
-	GoldIs(2)
-	GoldIs(3)
-	GoldIs(4)
-EndFunc
-
-Func GoldIs($bagIndex)
-	$lBag = GetBag($bagIndex)
-
-	For $i = 1 To DllStructGetData($lBag, 'Slots')
-		$aItem = GetItemBySlot($bagIndex, $i)
-		ConsoleWrite("Checking items: " & $bagIndex & ", " & $i & @CRLF & GetRarity($aItem) & @crlf)
-		If DllStructGetData($aItem, 'ID') <> 0 And GetRarity($aItem) = $RARITY_Gold Then
-				Do
-					For $bag = 8 To 12; Storage panels are form 8 till 16 (I have only standard amount plus aniversary one)
-						$slot = FindEmptySlot($bag)
-						$slot = @extended
-						If $slot <> 0 Then
-							$FULL = False
-							$nSlot = $slot
-							ExitLoop 2; finding first empty $slot in $bag and jump out
-						Else
-							$FULL = True; no empty slots :(
-						EndIf
-						Sleep(400)
-					Next
-				Until $FULL = True
-				If $FULL = False Then
-					MoveItem($aItem, $bag, $nSlot)
-					ConsoleWrite("Gold item moved ...."& @CRLF)
-					Sleep(Random(450, 550))
-				EndIf
-		EndIf
-	Next
-EndFunc   ;==>GoldIs
-
-Func CheckIfInventoryIsFull()
-	If CountSlots() = 0 Then
-		return true
-	Else
-		return false
-	EndIf
-EndFunc   ;==>CheckIfInventoryIsFull
 
 Func WaitForLoad()
 	CurrentAction("Loading zone")
