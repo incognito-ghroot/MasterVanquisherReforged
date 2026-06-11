@@ -104,13 +104,21 @@ Func _IsStonesEnabled()
     Return GUICtrlRead($Gui_Legio) = $GUI_CHECKED
 EndFunc
 
+Func _Vanquisher_ApplyConsumables()
+    If _IsConsetEnabled() Then UseConset()
+    If _IsBuEnabled() Then UseBU()
+    If _IsStonesEnabled() Then UseVanquisherStones()
+EndFunc
+
 Func UseBU()
     If Not _IsBuEnabled() Then Return
     If GetPartyDead() Then Return
     For $l_i_Idx = 0 To UBound($VANQUISHER_BU_MODEL_IDS) - 1
         Local $l_i_Effect = $VANQUISHER_BU_EFFECT_IDS[$l_i_Idx]
         If $l_i_Effect > 0 And GetEffectTimeRemainingEx(-2, $l_i_Effect) > 0 Then ContinueLoop
-        _Vanquisher_UseItemModelID($VANQUISHER_BU_MODEL_IDS[$l_i_Idx])
+        If _Vanquisher_UseItemModelID($VANQUISHER_BU_MODEL_IDS[$l_i_Idx]) Then
+            CurrentAction("Used BU item (model " & $VANQUISHER_BU_MODEL_IDS[$l_i_Idx] & ").")
+        EndIf
     Next
 EndFunc
 
@@ -119,6 +127,7 @@ Func UseVanquisherStones()
     If $g_h_Vanquisher_StoneTimer <> 0 And TimerDiff($g_h_Vanquisher_StoneTimer) < $VANQUISHER_STONE_INTERVAL Then Return
     If UseSummoningStone() Then
         $g_h_Vanquisher_StoneTimer = TimerInit()
+        CurrentAction("Used summoning stone / flare.")
     EndIf
 EndFunc
 
@@ -128,7 +137,6 @@ Func AggroMoveTo($x, $y, $s = "", $z = 1450)
 	$random = 50
 	$iBlocked = 0
 	$boolOpenChests = _IsOpenChestsEnabled()
-	$boolUseConset = _IsConsetEnabled()
 
 	Move($x, $y, $random)
 
@@ -142,9 +150,7 @@ Func AggroMoveTo($x, $y, $s = "", $z = 1450)
 			_Vanquisher_OnVanquishComplete(" (move)")
 			Return
 		EndIf
-		If $boolUseConset Then UseConset()
-		If _IsBuEnabled() Then UseBU()
-		If _IsStonesEnabled() Then UseVanquisherStones()
+		_Vanquisher_ApplyConsumables()
 		RndSleep(250)
 		$oldCoordsX = $coordsX
 		$oldCoordsY = $coordsY
