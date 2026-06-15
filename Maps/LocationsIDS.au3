@@ -78,8 +78,8 @@ Global $StingrayStrand_Outpost = 19
 Global $TalmarkWilderness_Map
 Global $TalmarkWilderness_Outpost
 Global $TearsoftheFallen_Map = 53
-Global $TearsoftheFallen_Outpost = 137
-Global $TearsoftheFallen_Transit = 63
+Global $TearsoftheFallen_Outpost = $GC_I_MAP_ID_FISHERMENS_HAVEN ; 137 — Fisherman's Haven
+Global $TearsoftheFallen_Transit = 63 ; Stingray Strand (first portal from haven)
 Global $TheBlackCurtain_Map = 18
 Global $TheBlackCurtain_Outpost = 138
 Global $TwinSerpentLakes_Map = 61

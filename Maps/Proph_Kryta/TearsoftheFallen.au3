@@ -17,18 +17,18 @@ Local $aTearsTransitPath[7][2] = [ _
 	[-13618, 20788] _
 ]
 
-; Outpost 137 -> transit 63 (Stingray Strand) -> farm 53 (Tears of the Fallen). Two portals.
+; Fisherman's Haven (137) -> Stingray Strand (63) -> Tears of the Fallen (53). Two portals.
 Func GoOutTearsoftheFallen()
 	Local $l_i_Map = GetMapID()
 
 	If $l_i_Map = $TearsoftheFallen_Outpost Then
-		CurrentAction("Tears of the Fallen — outpost to transit.")
-		_Vanquisher_RunAggroPortalPath($aTearsOutpostPath, $vqrange, "outpost ")
+		CurrentAction("Fisherman's Haven — outpost to Stingray Strand.")
+		_Vanquisher_RunAggroPortalPath($aTearsOutpostPath, $vqrange, "haven ")
 		Return
 	EndIf
 
 	If $l_i_Map = $TearsoftheFallen_Transit Then
-		CurrentAction("Tears of the Fallen — transit to farm.")
+		CurrentAction("Stingray Strand — transit to Tears of the Fallen.")
 		_Vanquisher_InitCombatAI()
 		_Vanquisher_RunAggroPortalPath($aTearsTransitPath, $vqrange, "transit ")
 	EndIf
@@ -36,6 +36,7 @@ EndFunc
 
 Func VQTearsoftheFallen()
 	If GetMapID() <> $TearsoftheFallen_Map And GetMapID() <> $TearsoftheFallen_Outpost And GetMapID() <> $TearsoftheFallen_Transit Then
+		CurrentAction("Traveling to Fisherman's Haven.")
 		TravelTo($TearsoftheFallen_Outpost)
 	EndIf
 
