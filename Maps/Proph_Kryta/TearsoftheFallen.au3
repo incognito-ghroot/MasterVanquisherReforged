@@ -17,35 +17,51 @@ Local $aTearsTransitPath[7][2] = [ _
 	[-13618, 20788] _
 ]
 
-; Fisherman's Haven (137) -> Stingray Strand (63) -> Tears of the Fallen (53). Two portals.
+Func _Vanquisher_ResetTearsRouteProgress()
+	$g_i_TearsRoute_LastMapHandled = -1
+EndFunc
+
+; Fisherman's Haven (137) -> Stingray Strand transit (63) -> Tears of the Fallen farm (53).
 Func GoOutTearsoftheFallen()
 	Local $l_i_Map = GetMapID()
 
+	If $l_i_Map = $TearsoftheFallen_Map Then Return
+
 	If $l_i_Map = $TearsoftheFallen_Outpost Then
-		CurrentAction("Fisherman's Haven — outpost to Stingray Strand.")
+		If $g_i_TearsRoute_LastMapHandled = $l_i_Map Then Return
+		$g_b_Vanquisher_TransitOnly = True
+		CurrentAction("Fisherman's Haven -> Stingray Strand (portal 1).")
 		_Vanquisher_RunAggroPortalPath($aTearsOutpostPath, $vqrange, "haven ")
+		$g_i_TearsRoute_LastMapHandled = $l_i_Map
+		$g_b_Vanquisher_TransitOnly = False
 		Return
 	EndIf
 
 	If $l_i_Map = $TearsoftheFallen_Transit Then
-		CurrentAction("Stingray Strand — transit to Tears of the Fallen.")
+		If $g_i_TearsRoute_LastMapHandled = $l_i_Map Then Return
+		$g_b_Vanquisher_TransitOnly = True
+		CurrentAction("Stingray Strand (transit) -> Tears of the Fallen (portal 2).")
 		_Vanquisher_InitCombatAI()
-		_Vanquisher_RunAggroPortalPath($aTearsTransitPath, $vqrange, "transit ")
+		_Vanquisher_RunAggroPortalPath($aTearsTransitPath, $vqrange, "stingray ")
+		$g_i_TearsRoute_LastMapHandled = $l_i_Map
+		$g_b_Vanquisher_TransitOnly = False
 	EndIf
 EndFunc
 
 Func VQTearsoftheFallen()
 	If GetMapID() <> $TearsoftheFallen_Map And GetMapID() <> $TearsoftheFallen_Outpost And GetMapID() <> $TearsoftheFallen_Transit Then
+		_Vanquisher_ResetTearsRouteProgress()
 		CurrentAction("Traveling to Fisherman's Haven.")
 		TravelTo($TearsoftheFallen_Outpost)
 	EndIf
 
 	If GetMapID() = $TearsoftheFallen_Outpost Or GetMapID() = $TearsoftheFallen_Transit Then
 		_Vanquisher_ApplyDifficulty()
-		Do
-			GoOutTearsoftheFallen()
-			Sleep(2000)
-		Until GetMapID() = $TearsoftheFallen_Map
+		GoOutTearsoftheFallen()
+		If GetMapID() <> $TearsoftheFallen_Map Then
+			CurrentAction("Routing — on map " & GetMapID() & ", need Tears of the Fallen (" & $TearsoftheFallen_Map & ").")
+			Return
+		EndIf
 	EndIf
 
 	If GetMapID() <> $TearsoftheFallen_Map Then
@@ -53,7 +69,7 @@ Func VQTearsoftheFallen()
 		Return
 	EndIf
 
-	CurrentAction("Starting Tears of the Fallen route.")
+	CurrentAction("Starting Tears of the Fallen vanquish route.")
 
 	Local $aWaypoints[31][4] = [ _
 		[3377, -6583, " ", $vqrange], _

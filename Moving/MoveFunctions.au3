@@ -27,7 +27,9 @@ Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_La
     Next
     If $g_b_Vanquisher_AbortRoute Then Return
     AggroMoveTo($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1], $a_s_Label & " portal", $a_i_AggroRange)
+    Local $l_i_MapBefore = GetMapID()
     Move($a_a_Points[$l_i_Last][0], $a_a_Points[$l_i_Last][1])
+    If GetMapID() <> $l_i_MapBefore Or Map_GetInstanceInfo("IsLoading") Then Return
     WaitForLoad()
 EndFunc
 
@@ -223,7 +225,7 @@ EndFunc
 
 Func AggroMoveTo($x, $y, $s = "", $z = 1450)
 	If $g_b_Vanquisher_AbortRoute Then Return
-	If _Vanquisher_IsVanquishComplete() Then
+	If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
 		_Vanquisher_OnVanquishComplete(" (waypoint)")
 		Return
 	EndIf
@@ -241,7 +243,7 @@ Func AggroMoveTo($x, $y, $s = "", $z = 1450)
 
 	Do
 		If $DeadOnTheRun Or $g_b_Vanquisher_AbortRoute Then ExitLoop
-		If _Vanquisher_IsVanquishComplete() Then
+		If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
 			_Vanquisher_OnVanquishComplete(" (move)")
 			Return
 		EndIf
@@ -260,7 +262,7 @@ Func AggroMoveTo($x, $y, $s = "", $z = 1450)
 				If $g_b_Vanquisher_AbortRoute Then Return
 				_Vanquisher_ApplyConsumables()
 				UpdateVanquish()
-				If _Vanquisher_IsVanquishComplete() Then
+				If Not $g_b_Vanquisher_TransitOnly And _Vanquisher_IsVanquishComplete() Then
 					_Vanquisher_OnVanquishComplete(" (after fight)")
 					Return
 				EndIf

@@ -135,3 +135,5 @@ Global $g_b_Vanquisher_RunFinished = False
 Global $g_b_Vanquisher_AbortRoute = False
 Global $g_b_Vanquisher_DeathResignPending = False
 Global $g_b_Vanquisher_CombatAIReady = False
+Global $g_b_Vanquisher_TransitOnly = False
+Global $g_i_TearsRoute_LastMapHandled = -1
