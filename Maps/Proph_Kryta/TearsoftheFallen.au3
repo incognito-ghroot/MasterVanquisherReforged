@@ -101,7 +101,7 @@ Func VQTearsoftheFallen()
 		[7656, -4505, " ", $vqrange], _
 		[2390, -2661, " ", $vqrange], _
 		[-2044, -1471, " ", $vqrange], _
-		[-3145, 1059, " ", $vqrange] _
+		[-3145, 1059, " ", $vqrange] ]
 
 	MoveandAggroVQFullRoute($aWaypoints)
 EndFunc

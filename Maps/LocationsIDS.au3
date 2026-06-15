@@ -74,7 +74,7 @@ Global $NorthKrytaProvince_Outpost
 Global $ScoundrelsRise_Map
 Global $ScoundrelsRise_Outpost
 Global $StingrayStrand_Map = 63
-Global $StingrayStrand_Outpost = 19
+Global $StingrayStrand_Outpost = $GC_I_MAP_ID_RIVERSIDE_PROVINCE_OUTPOST ; 73 — Riverside Province
 Global $TalmarkWilderness_Map
 Global $TalmarkWilderness_Outpost
 Global $TearsoftheFallen_Map = 53

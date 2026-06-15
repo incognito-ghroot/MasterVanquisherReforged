@@ -213,9 +213,7 @@ Func GoOut()
 					Move(4600, -27863)
 					WaitForLoad()
 				Case "StingrayStrand"
-					MoveTo(-21891.00, 6349.00)
-					Move(-23063.48, 7147.90)
-					WaitForLoad()
+					GoOutStingrayStrand()
 				Case "TalmarkWilderness"
 					MoveTo(1683, -1594)
 					Move(4600, -27863)
