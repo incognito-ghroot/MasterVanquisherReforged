@@ -4662,19 +4662,9 @@ Func _LogWrite($sLevel, $sText)
         @CRLF & "[" & @HOUR & ":" & @MIN & ":" & @SEC & "] [" & $sLevel & "] " & _
         $sText
 
-    ; GUI console
     If $g_h_EditText Then
         _GUICtrlRichEdit_AppendText($g_h_EditText, $sLine)
         _GUICtrlEdit_Scroll($g_h_EditText, 1)
-    EndIf
-
-    ; File log (crash safe)
-    If $g_s_LogFile <> "" Then
-        Local $hFile = FileOpen($g_s_LogFile, $FO_APPEND)
-        If $hFile <> -1 Then
-            FileWrite($hFile, $sLine)
-            FileClose($hFile)
-        EndIf
     EndIf
 EndFunc
 

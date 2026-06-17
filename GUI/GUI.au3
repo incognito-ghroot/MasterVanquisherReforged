@@ -6,9 +6,6 @@ Global $coords[2]
 Global $Title, $sGW
 Global $Bool_Donate = False, $Bool_HM = False, $Bool_AddHeroes = False, $Bool_Bu = False, $Bool_Stones = False
 Global $Bool_OpenChests = False, $Bool_Conset = False
-Global $File = @ScriptDir & "\Trace\Tra a du " & @MDAY & "-" & @MON & " a " & @HOUR & "h et " & @MIN & "minutes.txt"
-If Not FileExists(@ScriptDir & "\Trace") Then DirCreate(@ScriptDir & "\Trace")
-$g_s_LogFile = $File
 Global $iniHero = @ScriptDir&"\Hero.ini"
 
 Opt("GUIOnEventMode", 1)

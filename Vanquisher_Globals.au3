@@ -121,8 +121,6 @@ Global $g_a_Vanquisher_BULastUsed[7]
 Global $g_a_Vanquisher_BUUsedThisZone[7]
 Global $g_a_Vanquisher_ConsetLastUsed[3]
 
-; Crash-safe file log path (set from GUI.au3 when the Trace file is created)
-Global $g_s_LogFile = @ScriptDir & "\Trace\Vanquisher.log"
 Global $g_h_EditText = 0
 
 ; Vanquish baseline on zone-in (foes remaining/killed when entering the explorable)

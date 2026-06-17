@@ -16,7 +16,6 @@ While 1
 		If $NumberRun = 0 Then ;first run
 			AdlibRegister("status", 1000)
 			$TimerTotal = TimerInit()
-			FileOpen($File)
 			$SS_begin = GetSunspearTitle()
 			$LB_begin = GetLightbringerTitle()
 			$Asura_begin = GetAsuraTitle()
