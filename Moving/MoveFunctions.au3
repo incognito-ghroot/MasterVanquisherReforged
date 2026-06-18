@@ -159,7 +159,14 @@ Func _Vanquisher_ShouldPollConsumables()
     Return TimerDiff($g_h_Vanquisher_ConsumablePollTimer) >= $VANQUISHER_CONSUMABLE_POLL_MS
 EndFunc
 
+Func _Vanquisher_CanUseConsumables()
+    If $g_b_Vanquisher_TransitOnly Then Return False
+    If Map_GetInstanceInfo("Type") <> $GC_I_MAP_TYPE_EXPLORABLE Then Return False
+    Return True
+EndFunc
+
 Func _Vanquisher_ApplyConsumables($a_b_Force = False)
+    If Not _Vanquisher_CanUseConsumables() Then Return
     If Not $a_b_Force Then
         If Not _Vanquisher_ShouldPollConsumables() Then Return
     EndIf
