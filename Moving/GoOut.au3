@@ -60,8 +60,7 @@ Func GoOut()
 
 		Switch $Title
 			Case "AscalonFoothills"
-				TakeQuestDeldrimor()
-				WaitForLoad()
+				GoOutAscalonFoothills()
 				Case "DiessaLowlands"
 					MoveTo(9342, 4942)
 					Move(9240, 3985)
