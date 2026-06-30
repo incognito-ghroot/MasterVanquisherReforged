@@ -9,6 +9,29 @@ Func _Vanquisher_IsOnTransitToFarm()
 	Return False
 EndFunc
 
+Func _Vanquisher_AddHeroFromCombo($a_i_ComboCtrl)
+	Local $l_s_Name = StringStripWS(GUICtrlRead($a_i_ComboCtrl), 3)
+	If $l_s_Name = "" Then Return False
+	Local $l_i_HeroId = GetHeroIdByName($l_s_Name)
+	If $l_i_HeroId < 1 Then
+		CurrentAction("Unknown hero: " & $l_s_Name)
+		Return False
+	EndIf
+	Local $l_i_ModelId = GetHeroModelIdByHeroId($l_i_HeroId)
+	If $l_i_ModelId > 0 Then
+		CurrentAction("Adding hero: " & $l_s_Name & " (hero " & $l_i_HeroId & ", model " & $l_i_ModelId & ")")
+	Else
+		CurrentAction("Adding hero: " & $l_s_Name & " (hero " & $l_i_HeroId & ")")
+	EndIf
+	AddHero($l_i_HeroId)
+	_Vanquisher_CooperativeSleep(500)
+	If Not PartyHasHeroFileId($l_i_HeroId) Then
+		CurrentAction("Hero not in party yet: " & $l_s_Name)
+		Return False
+	EndIf
+	Return True
+EndFunc
+
 Func GoOut()
 	If _Vanquisher_ShouldStop() Then Return
 	RndSleep(250)
@@ -33,36 +56,19 @@ Func GoOut()
 			$PartySize = GetMaxPartySize(GetMapID())
 
 			If $PartySize >= 4 Then
-				$heroToAdd = GetHeroIdByName(GUICtrlRead($COMBO_HERO1))
-				AddHero($heroToAdd)
-				_Vanquisher_CooperativeSleep(500)
-
-				$heroToAdd = GetHeroIdByName(GUICtrlRead($COMBO_HERO2))
-				AddHero($heroToAdd)
-				_Vanquisher_CooperativeSleep(500)
-
-				$heroToAdd = GetHeroIdByName(GUICtrlRead($COMBO_HERO3))
-				AddHero($heroToAdd)
-				_Vanquisher_CooperativeSleep(500)
+				_Vanquisher_AddHeroFromCombo($COMBO_HERO1)
+				_Vanquisher_AddHeroFromCombo($COMBO_HERO2)
+				_Vanquisher_AddHeroFromCombo($COMBO_HERO3)
 			EndIf
 
 			If $PartySize >= 6 Then
-				$heroToAdd = GetHeroIdByName(GUICtrlRead($COMBO_HERO4))
-				AddHero($heroToAdd)
-				_Vanquisher_CooperativeSleep(500)
-
-				$heroToAdd = GetHeroIdByName(GUICtrlRead($COMBO_HERO5))
-				AddHero($heroToAdd)
-				_Vanquisher_CooperativeSleep(500)
+				_Vanquisher_AddHeroFromCombo($COMBO_HERO4)
+				_Vanquisher_AddHeroFromCombo($COMBO_HERO5)
 			EndIf
 
 			If $PartySize = 8 Then
-				$heroToAdd = GetHeroIdByName(GUICtrlRead($COMBO_HERO6))
-				AddHero($heroToAdd)
-				_Vanquisher_CooperativeSleep(500)
-
-				$heroToAdd = GetHeroIdByName(GUICtrlRead($COMBO_HERO7))
-				AddHero($heroToAdd)
+				_Vanquisher_AddHeroFromCombo($COMBO_HERO6)
+				_Vanquisher_AddHeroFromCombo($COMBO_HERO7)
 			EndIf
 
 			CurrentAction("Party Setup")

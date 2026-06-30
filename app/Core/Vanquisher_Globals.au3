@@ -16,6 +16,50 @@ Global Enum $HERO_Norgu = 1, $HERO_Goren, $HERO_Tahlkora, $HERO_MasterOfWhispers
         $HERO_Livia = 21, $HERO_Hayda, $HERO_Kahmu, $HERO_Gwen, $HERO_Xandra, $HERO_Vekk, $HERO_Ogden
 Global Enum $HERO_MercenaryHero1 = 28, $HERO_MercenaryHero2 = 29, $HERO_MercenaryHero3 = 30, $HERO_MercenaryHero4 = 31, $HERO_MercenaryHero5 = 32, $HERO_MercenaryHero6 = 33, $HERO_MercenaryHero7 = 34, $HERO_MercenaryHero8 = 35
 
+; Hero file ID (Party_AddHero) -> NPC model file ID. 0 = unknown / not yet catalogued.
+Global Const $VANQUISHER_HERO_MODEL_DATA[40][2] = [ _
+    [39, 1], _
+    [1, 4477], _    ; Norgu
+    [2, 0], _       ; Goren
+    [3, 4507], _    ; Tahlkora
+    [4, 4514], _    ; Master of Whispers
+    [5, 0], _       ; Acolyte Jin
+    [6, 4523], _    ; Koss
+    [7, 4531], _    ; Dunkoro
+    [8, 0], _       ; Acolyte Sousuke
+    [9, 4544], _    ; Melonni
+    [10, 4488], _   ; Zhed Shadowhoof
+    [11, 4494], _   ; General Morgahn
+    [12, 0], _      ; Margrid the Sly
+    [13, 0], _      ; Zenmai
+    [14, 1985], _   ; Olias
+    [15, 0], _      ; Razah
+    [16, 525], _    ; Mox
+    [17, 0], _      ; Keiran Thackeray
+    [18, 6030], _   ; Jora
+    [19, 5970], _   ; Pyre Fierceshot
+    [20, 0], _      ; Anton
+    [21, 5995], _   ; Livia
+    [22, 0], _      ; Hayda
+    [23, 6010], _   ; Kahmu
+    [24, 6017], _   ; Gwen
+    [25, 6025], _   ; Xandra
+    [26, 5960], _   ; Vekk
+    [27, 5979], _   ; Ogden Stonehealer
+    [28, 1311], _   ; Mercenary Hero 1
+    [29, 1312], _   ; Mercenary Hero 2
+    [30, 1315], _   ; Mercenary Hero 3
+    [31, 1311], _   ; Mercenary Hero 4
+    [32, 1312], _   ; Mercenary Hero 5
+    [33, 1315], _   ; Mercenary Hero 6
+    [34, 1311], _   ; Mercenary Hero 7
+    [35, 1312], _   ; Mercenary Hero 8
+    [36, 0], _      ; Miku
+    [37, 0], _      ; Zei Ri
+    [38, 0], _      ; Devona
+    [39, 0] _       ; Ghost of Althea
+]
+
 ; Standard loot pickup defaults (used by GwAu3_AddOns CanPickUp)
 Global $isGoldPickup = True
 Global $isPurplePickup = False
