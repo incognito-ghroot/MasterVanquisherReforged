@@ -15,6 +15,7 @@ Global $Abandonquest = False
 
 While 1
 	If $boolrun = true Then
+		CurrentAction("Vanquish bot active — preparing run...")
 		If $NumberRun = 0 Then ;first run or next zone in queue
 			If Not $g_b_Vanquisher_SessionStarted Then
 				AdlibRegister("status", 1000)
@@ -478,6 +479,7 @@ While 1
 
 			If GetMapID() = $Map_To_Farm Then
 				_Vanquisher_RefreshVanquishBaseline()
+				Sleep(500)
 				_Vanquisher_ApplyConsumables(True)
 			Else
 				Sleep(3000)
@@ -545,7 +547,8 @@ While 1
 			EndIf
 
 		Sleep(50)
-
+	Else
+		Sleep(100)
 	EndIf
 WEnd
 

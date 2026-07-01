@@ -224,7 +224,7 @@ If $doLoadLoggedChars Then
 		_Vanquisher_SetCharacterCombo($l_s_StartupNames, $g_s_MainCharName)
 		CurrentAction("Characters: " & StringReplace($l_s_StartupNames, "|", ", "))
 		_Vanquisher_SetConnectionStatus("READY")
-	ElseIf ProcessExists("gw.exe") Then
+	ElseIf ProcessExists("gw.exe") Or ProcessExists("Gw.exe") Then
 		CurrentAction("Guild Wars detected — click Refresh to load characters.")
 	Else
 		CurrentAction("Start Guild Wars, log in, then click Refresh.")
@@ -622,6 +622,8 @@ Func gui_eventHandler()
 				GUICtrlSetState($btnAttach, $GUI_DISABLE)
 			EndIf
 
+			CurrentAction("Starting vanquish queue for " & Player_GetCharName() & "...")
+
 			$Bool_Donate = False
 			$Bool_OpenChests = False
 			$Bool_Conset = False
@@ -694,40 +696,62 @@ Func _Vanquisher_SetConnectionStatus($a_s_Status)
 			GUICtrlSetColor($lblStatusValue, $GUI_CLR_ACCENT)
 		Case "ATTACHED", "READY"
 			GUICtrlSetColor($lblStatusValue, $GUI_CLR_TEXT)
+		Case "ATTACHING"
+			GUICtrlSetColor($lblStatusValue, $GUI_CLR_ACCENT)
 		Case Else
 			GUICtrlSetColor($lblStatusValue, $GUI_CLR_MUTED)
 	EndSwitch
 EndFunc
 
+Func _Vanquisher_FindGuildWarsProcess()
+	Local $l_i_Pid = ProcessExists("gw.exe")
+	If $l_i_Pid Then Return $l_i_Pid
+	Return ProcessExists("Gw.exe")
+EndFunc
+
+Func _Vanquisher_GwAu3LogCallback($a_s_Message, $a_e_MsgType, $a_s_Author)
+	CurrentAction("[" & $a_s_Author & "] " & $a_s_Message)
+EndFunc
+
 Func InitializeBot()
+	GUICtrlSetState($Start, $GUI_DISABLE)
 	Local $l_s_CharName = GUICtrlRead($txtName)
 	If $l_s_CharName = "" And $g_s_MainCharName <> "" Then $l_s_CharName = $g_s_MainCharName
 
-	Local $l_i_Result = 0
+	CurrentAction("Attaching to Guild Wars — scanning memory patterns (may take 15–30s)...")
+	_Vanquisher_SetConnectionStatus("ATTACHING")
+
+	Local $l_b_OK = False
 	If $l_s_CharName = "" Then
-		$l_i_Result = Core_Initialize(ProcessExists("gw.exe"), True)
-		If $l_i_Result = 0 Then
+		Local $l_i_Pid = _Vanquisher_FindGuildWarsProcess()
+		If Not $l_i_Pid Then
+			GUICtrlSetState($Start, $GUI_ENABLE)
 			MsgBox(0, "Error", "Guild Wars is not running.")
 			Return False
 		EndIf
+		$l_b_OK = Initialize($l_i_Pid, True)
 	ElseIf $ProcessID Then
-		Local $l_i_Pid = Number($ProcessID, 2)
-		$l_i_Result = Core_Initialize($l_i_Pid, True)
-		If $l_i_Result = 0 Then
-			MsgBox(0, "Error", "Could not find a Guild Wars process with ID '" & $l_i_Pid & "'.")
-			Return False
-		EndIf
+		$l_b_OK = Initialize(Number($ProcessID, 2), True)
 	Else
-		$l_i_Result = Core_Initialize($l_s_CharName, True)
-		If $l_i_Result = 0 Then
+		$l_b_OK = Initialize($l_s_CharName, True)
+	EndIf
+
+	If Not $l_b_OK Then
+		GUICtrlSetState($Start, $GUI_ENABLE)
+		_Vanquisher_SetConnectionStatus("WAITING FOR ATTACH")
+		If $l_s_CharName <> "" Then
 			MsgBox(0, "Error", "Could not find a Guild Wars client with a character named '" & $l_s_CharName & "'.")
-			Return False
+		Else
+			MsgBox(0, "Error", "Could not attach to Guild Wars.")
 		EndIf
+		Return False
 	EndIf
 
 	_Vanquisher_SyncLegacyHandles()
 	If $l_s_CharName <> "" Then _Vanquisher_SaveLastCharacter($l_s_CharName)
 	$Bot_Core_Initialized = True
+	CurrentAction("Attached to " & Player_GetCharName() & ".")
+	GUICtrlSetState($Start, $GUI_ENABLE)
 	Return True
 EndFunc
 
@@ -777,7 +801,7 @@ Func RefreshCharNames()
 		Return
 	EndIf
 
-	If ProcessExists("gw.exe") Then
+	If ProcessExists("gw.exe") Or ProcessExists("Gw.exe") Then
 		_Vanquisher_SetCharacterCombo("")
 		CurrentAction("Guild Wars is running but no character names were found. Log in fully, then click Refresh.")
 	Else
@@ -861,3 +885,5 @@ Func WaitForLoad()
 	CurrentAction("Load complete")
 	Sleep(1000)
 EndFunc
+
+Log_SetCallback("_Vanquisher_GwAu3LogCallback")

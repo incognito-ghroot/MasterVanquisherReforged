@@ -2150,7 +2150,7 @@ Func UseConset()
 
     Local $l_a_Effects[3] = [$EffectEssence, $EffectArmor, $EffectGrail]
     For $l_i_Idx = 0 To UBound($Conset) - 1
-        If GetEffectTimeRemainingEx(-2, $l_a_Effects[$l_i_Idx]) > 0 Then ContinueLoop
+        If Agent_GetAgentEffectInfo(-2, $l_a_Effects[$l_i_Idx], "HasEffect") Then ContinueLoop
         For $l_i_Bag = 1 To 4
             For $l_i_Slot = 1 To Item_GetBagInfo($l_i_Bag, "Slots")
                 Local $l_p_Item = Item_GetItemBySlot($l_i_Bag, $l_i_Slot)
