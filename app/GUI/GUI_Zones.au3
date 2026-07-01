@@ -8,8 +8,11 @@ Func _Vanquisher_InitZones()
     $bDone = True
     Global $g_a_VanquisherZones, $g_i_VanquisherZoneCount
     ; Zone order follows Core/Linker.au3 / Maps folder order: Prophecies, Factions, Nightfall, EotN.
-    ; Ascalon section: southern maps first, Traveler's Vale, then northern (via Yak's Bend).
+    ; Ascalon section: Traveler's Vale first (consets/transit), then Foothills/Diessa, then southern maps.
     Local $sData = _
+        "TravelersVale|TRAVELER''S VALE|Prophecies|0|Ascalon" & @CRLF & _
+        "AscalonFoothills|ASCALON FOOTHILLS|Prophecies|0|Ascalon" & @CRLF & _
+        "DiessaLowlands|DIESSA LOWLANDS|Prophecies|0|Ascalon" & @CRLF & _
         "OldAscalon|OLD ASCALON|Prophecies|0|Ascalon" & @CRLF & _
         "RegentValley|REGENT VALLEY|Prophecies|0|Ascalon" & @CRLF & _
         "TheBreach|THE BREACH|Prophecies|0|Ascalon" & @CRLF & _
@@ -17,9 +20,6 @@ Func _Vanquisher_InitZones()
         "EasternFrontier|EASTERN FRONTIER|Prophecies|0|Ascalon" & @CRLF & _
         "FlameTempleCorridor|FLAME TEMPLE CORRIDOR|Prophecies|0|Ascalon" & @CRLF & _
         "PockmarkFlats|POCKMARK FLATS|Prophecies|0|Ascalon" & @CRLF & _
-        "TravelersVale|TRAVELER''S VALE|Prophecies|0|Ascalon" & @CRLF & _
-        "AscalonFoothills|ASCALON FOOTHILLS|Prophecies|0|Ascalon" & @CRLF & _
-        "DiessaLowlands|DIESSA LOWLANDS|Prophecies|0|Ascalon" & @CRLF & _
         "AnvilRock|ANVIL ROCK|Prophecies|0" & @CRLF & _
         "DeldrimorBowl|DELDRIMOR BOWL|Prophecies|0" & @CRLF & _
         "GriffonsMouth|GRIFFON''S MOUTH|Prophecies|0" & @CRLF & _

@@ -486,7 +486,7 @@ EndFunc
 
 Func _Vanquisher_OnSelectAscalon()
 	_Vanquisher_SelectZonesByRegion("Ascalon")
-	CurrentAction("Selected Ascalon section (10 zones): southern Ascalon, Traveler's Vale, then Foothills/Diessa.")
+	CurrentAction("Selected Ascalon section (10 zones): Traveler's Vale, Foothills, Diessa, then southern Ascalon.")
 EndFunc
 
 Func _Vanquisher_OnClearZoneSelection()
