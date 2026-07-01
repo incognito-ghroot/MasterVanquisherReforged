@@ -282,7 +282,7 @@ Func VQTheShatteredRavines()
 		[-9553, -1390, " ", $vqrange], _
 		[-10467, -1538, " ", $vqrange], _
 		[-14269, -782, " ", $vqrange], _
-		[-16033, -216, " ", $vqrange], _
+		[-16033, -216, "UseWormSpoor", $vqrange], _
 		[-11465, -1625, " ", $vqrange], _
 		[-11906, -3571, " ", $vqrange], _
 		[-14666, -4285, " ", $vqrange], _

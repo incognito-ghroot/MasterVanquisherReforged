@@ -1313,6 +1313,11 @@ Func ChestFilter($aAgentPtr)
     Next
     Return False
 EndFunc   ;==>ChestFilter
+
+Func WormSpoorFilter($aAgentPtr)
+    If $aAgentPtr = 0 Then Return False
+    Return Agent_GetAgentInfo($aAgentPtr, "ModelID") = 7
+EndFunc   ;==>WormSpoorFilter
 #EndRegion
 
 #Region Agents
@@ -4681,53 +4686,75 @@ EndFunc
 #EndRegion
 
 #Region Master Vanquisher helpers
-Func _Vanquisher_NormalizeHeroName($a_s_Name)
-    Local $l_s_Name = StringUpper(StringStripWS($a_s_Name, 3))
-    If $l_s_Name = "" Then Return ""
-    $l_s_Name = StringReplace($l_s_Name, ".", "")
-    $l_s_Name = StringReplace($l_s_Name, ":", "")
-    While StringInStr($l_s_Name, "  ")
-        $l_s_Name = StringReplace($l_s_Name, "  ", " ")
-    WEnd
-    Return $l_s_Name
-EndFunc
-
 Func GetHeroIdByName($heroName)
-    Local $l_s_Normalized = _Vanquisher_NormalizeHeroName($heroName)
-    If $l_s_Normalized = "" Then Return -1
-
-    Local $l_i_Count = $GC_AM2_HERO_DATA[0][0]
-    For $l_i_Idx = 1 To $l_i_Count
-        If _Vanquisher_NormalizeHeroName($GC_AM2_HERO_DATA[$l_i_Idx][1]) = $l_s_Normalized Then
-            Return $GC_AM2_HERO_DATA[$l_i_Idx][0]
-        EndIf
-    Next
-    Return -1
-EndFunc
-
-Func GetHeroModelIdByHeroId($a_i_HeroId)
-    If $a_i_HeroId < 1 Then Return 0
-    Local $l_i_Count = $VANQUISHER_HERO_MODEL_DATA[0][0]
-    For $l_i_Idx = 1 To $l_i_Count
-        If $VANQUISHER_HERO_MODEL_DATA[$l_i_Idx][0] = $a_i_HeroId Then
-            Return $VANQUISHER_HERO_MODEL_DATA[$l_i_Idx][1]
-        EndIf
-    Next
-    Return 0
-EndFunc
-
-Func GetHeroModelIdByName($a_s_Name)
-    Local $l_i_HeroId = GetHeroIdByName($a_s_Name)
-    If $l_i_HeroId < 1 Then Return 0
-    Return GetHeroModelIdByHeroId($l_i_HeroId)
-EndFunc
-
-Func PartyHasHeroFileId($a_i_HeroFileId)
-    If $a_i_HeroFileId < 1 Then Return False
-    For $l_i_Slot = 1 To Party_GetMyPartyInfo("ArrayHeroPartyMemberSize")
-        If Party_GetHeroInfo($l_i_Slot, "HeroFileID") = $a_i_HeroFileId Then Return True
-    Next
-    Return False
+    Switch $heroName
+        Case "Norgu"
+            Return $HERO_Norgu
+        Case "Goren"
+            Return $HERO_Goren
+        Case "Tahlkora"
+            Return $HERO_Tahlkora
+        Case "Master Of Whispers"
+            Return $HERO_MasterOfWhispers
+        Case "Acolyte Jin"
+            Return $HERO_AcolyteJin
+        Case "Koss"
+            Return $HERO_Koss
+        Case "Dunkoro"
+            Return $HERO_Dunkoro
+        Case "Acolyte Sousuke"
+            Return $HERO_AcolyteSousuke
+        Case "Melonni"
+            Return $HERO_Melonni
+        Case "Zhed Shadowhoof"
+            Return $HERO_ZhedShadowhoof
+        Case "General Morgahn"
+            Return $HERO_GeneralMorgahn
+        Case "Margrid The Sly"
+            Return $HERO_MargridTheSly
+        Case "Olias"
+            Return $HERO_Olias
+        Case "Razah"
+            Return $HERO_Razah
+        Case "MOX"
+            Return $HERO_MOX
+        Case "Jora"
+            Return $HERO_Jora
+        Case "Pyre Fierceshot"
+            Return $HERO_PyreFierceshot
+        Case "Livia"
+            Return $HERO_Livia
+        Case "Hayda"
+            Return $HERO_Hayda
+        Case "Kahmu"
+            Return $HERO_Kahmu
+        Case "Gwen"
+            Return $HERO_Gwen
+        Case "Xandra"
+            Return $HERO_Xandra
+        Case "Vekk"
+            Return $HERO_Vekk
+        Case "Ogden"
+            Return $HERO_Ogden
+        Case "Mercenary Hero 1"
+            Return $HERO_MercenaryHero1
+        Case "Mercenary Hero 2"
+            Return $HERO_MercenaryHero2
+        Case "Mercenary Hero 3"
+            Return $HERO_MercenaryHero3
+        Case "Mercenary Hero 4"
+            Return $HERO_MercenaryHero4
+        Case "Mercenary Hero 5"
+            Return $HERO_MercenaryHero5
+        Case "Mercenary Hero 6"
+            Return $HERO_MercenaryHero6
+        Case "Mercenary Hero 7"
+            Return $HERO_MercenaryHero7
+        Case "Mercenary Hero 8"
+            Return $HERO_MercenaryHero8
+        Case Else
+            Return -1
+    EndSwitch
 EndFunc
 
 Func CheckArrayMapPieces($lModelID)

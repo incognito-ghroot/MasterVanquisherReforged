@@ -117,7 +117,7 @@ Func VQTheAlkaliPan()
 		[-17925, -162, " ", $vqrange], _
 		[-18808, -897, " ", $vqrange], _
 		[-18982, -1798, " ", $vqrange], _
-		[-16938, -674, " ", $vqrange], _
+		[-16938, -674, "UseWormSpoor", $vqrange], _
 		[-17456, 49, " ", $vqrange], _
 		[-18317, 1371, " ", $vqrange], _
 		[-17978, 2201, " ", $vqrange], _

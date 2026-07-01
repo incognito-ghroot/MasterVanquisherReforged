@@ -33,6 +33,42 @@ Func _Vanquisher_RunAggroPortalPath($a_a_Points, $a_i_AggroRange = 1450, $a_s_La
     WaitForLoad()
 EndFunc
 
+Func _Vanquisher_IsWormSpoorWaypoint($a_s_Label)
+    Return StringInStr(StringLower($a_s_Label), "usewormspoor") > 0
+EndFunc
+
+Func UseWormSpoor($a_f_X = 0, $a_f_Y = 0)
+    If _Vanquisher_ShouldStop() Then Return
+    CurrentAction("Using Wurm Spoor")
+
+    Local $l_f_X = $a_f_X
+    Local $l_f_Y = $a_f_Y
+    If $l_f_X = 0 And $l_f_Y = 0 Then
+        $l_f_X = Agent_GetAgentInfo(-2, "X")
+        $l_f_Y = Agent_GetAgentInfo(-2, "Y")
+    EndIf
+
+    MoveTo($l_f_X, $l_f_Y, 50, False)
+    RndSleep(500)
+
+    Local $l_p_Spoor = GetNearestWormSpoorToCoords($l_f_X, $l_f_Y, 1500)
+    If $l_p_Spoor <> 0 Then
+        Local $l_i_SpoorID = _Vanquisher_AgentID($l_p_Spoor)
+        If $l_i_SpoorID <> 0 Then
+            Agent_ChangeTarget($l_i_SpoorID)
+            RndSleep(750)
+            GoSignpost($l_i_SpoorID)
+        EndIf
+    Else
+        TargetNearestItem()
+        RndSleep(750)
+        GoSignpost(-1)
+    EndIf
+
+    RndSleep(750)
+    Sleep(7000)
+EndFunc
+
 ; Standard forward + reverse route (use for any map with both passes).
 Func MoveandAggroVQFullRoute($aWaypoints)
     MoveandAggroVQ($aWaypoints)
@@ -53,6 +89,7 @@ Func MoveandAggroVQ($aWaypoints)
         $RangeLimit = $aWaypoints[$Index][3]
         If _Vanquisher_CheckVanquishDuringRoute($timer, " (forward)") Then Return
         AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
+        If _Vanquisher_IsWormSpoorWaypoint($aWaypoints[$Index][2]) Then UseWormSpoor($aWaypoints[$Index][0], $aWaypoints[$Index][1])
         $ActionCounter += 1
         If _Vanquisher_IsVanquishComplete() Then
             If _Vanquisher_OnVanquishComplete(" (forward)") Then Return
@@ -79,6 +116,7 @@ Func MoveandAggroVQWurm($aWaypoints)
         If _Vanquisher_ShouldStop() Then Return
         If _Vanquisher_CheckVanquishDuringRoute($timer, " (wurm)") Then Return
         AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
+        If _Vanquisher_IsWormSpoorWaypoint($aWaypoints[$Index][2]) Then UseWormSpoor($aWaypoints[$Index][0], $aWaypoints[$Index][1])
         $ActionCounter += 1
         If _Vanquisher_IsVanquishComplete() Then
             If _Vanquisher_OnVanquishComplete(" (wurm)") Then Return
@@ -100,6 +138,7 @@ Func MoveandAggroVQReverse($aWaypoints)
         If _Vanquisher_ShouldStop() Then Return
         If _Vanquisher_CheckVanquishDuringRoute($timer, " (reverse)") Then Return
         AggroMoveTo($aWaypoints[$Index][0], $aWaypoints[$Index][1], $aWaypoints[$Index][2] & $ActionCounter, $aWaypoints[$Index][3])
+        If _Vanquisher_IsWormSpoorWaypoint($aWaypoints[$Index][2]) Then UseWormSpoor($aWaypoints[$Index][0], $aWaypoints[$Index][1])
         $ActionCounter += 1
         If _Vanquisher_IsVanquishComplete() Then
             If _Vanquisher_OnVanquishComplete(" (reverse)") Then Return

@@ -49,12 +49,7 @@ Func VQTheSulfurousWastes()
 		AggroMoveTo(23368, -6278)
 		AggroMoveTo(21141, -5736)
 
-		MoveTo(24080, -5864)
-		RndSleep(5000)
-		TargetNearestItem()
-		RndSleep(750)
-		GoSignpost(-1)
-		RndSleep(750)
+		UseWormSpoor(24080, -5864)
 
 		MoveandAggroVQWurm($aWaypointsA)
 

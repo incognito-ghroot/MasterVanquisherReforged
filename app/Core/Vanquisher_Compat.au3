@@ -585,6 +585,10 @@ Func GoSignpost($aAgent)
     Return Agent_GoSignpost($aAgent)
 EndFunc
 
+Func TargetNearestItem()
+    Return Core_ControlAction($GC_I_CONTROL_TARGETING_ITEM_NEAREST)
+EndFunc
+
 Func OpenChest($a_b_WithLockpick = True)
     Return Item_OpenChest($a_b_WithLockpick)
 EndFunc
@@ -1103,5 +1107,11 @@ Func GetNearestNPCToCoords($a_f_X, $a_f_Y)
 
     If $l_p_Best = 0 Then Return 0
     Return GetAgentByID(Agent_GetAgentInfo($l_p_Best, "ID"))
+EndFunc
+
+Func GetNearestWormSpoorToCoords($a_f_X, $a_f_Y, $a_f_Range = 2500)
+    Local $l_p_Agent = GetAgentsFromXY($a_f_X, $a_f_Y, $a_f_Range, 0, 1, "WormSpoorFilter")
+    If $l_p_Agent = 0 Then Return 0
+    Return GetAgentByID(Agent_GetAgentInfo($l_p_Agent, "ID"))
 EndFunc
 #EndRegion

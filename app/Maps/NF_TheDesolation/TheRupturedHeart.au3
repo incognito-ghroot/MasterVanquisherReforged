@@ -324,7 +324,7 @@ Func VQTheRupturedHeart()
 		[12100, -7300, " ", $vqrange], _
 		[12883, -6287, " ", $vqrange], _
 		[13648, -2425, " ", $vqrange], _
-		[14329, 789, " ", $vqrange], _
+		[14329, 789, "UseWormSpoor", $vqrange], _
 		[17345, 3860, " ", $vqrange], _
 		[15994, 5258, " ", $vqrange], _
 		[14636, 6625, " ", $vqrange], _
