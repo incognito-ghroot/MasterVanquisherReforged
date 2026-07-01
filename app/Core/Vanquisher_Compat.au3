@@ -145,18 +145,22 @@ Func _Vanquisher_GetGwWindowTitles()
 EndFunc
 
 Func _Vanquisher_CharIniPath()
-    Return $VANQUISHER_CHAR_INI
+    Return $VANQUISHER_CHAR_INI_LOCAL
 EndFunc
 
 Func _Vanquisher_LoadLastCharacter()
-    Return IniRead(_Vanquisher_CharIniPath(), "Character", "LastName", "")
+    If Not FileExists($VANQUISHER_CHAR_INI_LOCAL) Then Return ""
+    Local $l_s_Name = IniRead($VANQUISHER_CHAR_INI_LOCAL, "Character", "LastName", "")
+    $l_s_Name = StringStripWS($l_s_Name, 3)
+    If $l_s_Name = "" Or StringUpper($l_s_Name) = "NONE" Then Return ""
+    Return $l_s_Name
 EndFunc
 
 Func _Vanquisher_SaveLastCharacter($a_s_Name)
     $a_s_Name = StringStripWS($a_s_Name, 3)
-    If $a_s_Name = "" Then Return
+    If $a_s_Name = "" Or StringUpper($a_s_Name) = "NONE" Then Return
     If Not FileExists($VANQUISHER_CONFIG_DIR) Then DirCreate($VANQUISHER_CONFIG_DIR)
-    IniWrite(_Vanquisher_CharIniPath(), "Character", "LastName", $a_s_Name)
+    IniWrite($VANQUISHER_CHAR_INI_LOCAL, "Character", "LastName", $a_s_Name)
 EndFunc
 
 Func _Vanquisher_CountGWClients()

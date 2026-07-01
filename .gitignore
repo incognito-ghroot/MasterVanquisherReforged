@@ -1,0 +1,2 @@
+# Local-only settings (character name, etc.) — never commit
+app/Config/Vanquisher.local.ini
