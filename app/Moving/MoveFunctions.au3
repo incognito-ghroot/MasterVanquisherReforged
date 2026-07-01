@@ -247,7 +247,6 @@ Func _Vanquisher_ApplyConsumables($a_b_Force = False)
 	Local $l_b_Any = False
 	If _IsConsetEnabled() Then
 		$l_b_Any = True
-		CurrentAction("Applying ConSets...")
 		_Vanquisher_UseConsetBuffered($a_b_Force)
 	EndIf
 	If _IsBuEnabled() Then
@@ -263,26 +262,40 @@ Func _Vanquisher_ApplyConsumables($a_b_Force = False)
 	EndIf
 EndFunc
 
+Func _Vanquisher_ConsetsFullyActive()
+	Return _Vanquisher_CountConsetEffects() >= 3
+EndFunc
+
 Func _Vanquisher_UseConsetBuffered($a_b_Force = False)
 	If GetPartyDead() Then Return
 	If Not _Vanquisher_IsInVanquishArea() Then Return
-	If $a_b_Force Then
-		For $l_i_Idx = 0 To 2
-			$g_a_Vanquisher_ConsetLastUsed[$l_i_Idx] = 0
-		Next
-	EndIf
+
 	Local $l_i_Before = _Vanquisher_CountConsetEffects()
+	If $l_i_Before >= 3 Then
+		$g_b_Vanquisher_ConsetAppliedThisZone = True
+		Return
+	EndIf
+
+	If $g_b_Vanquisher_ConsetAppliedThisZone And Not $a_b_Force Then Return
+	If Not $a_b_Force And _Vanquisher_ConsumableDebounce($g_a_Vanquisher_ConsetLastUsed[0]) Then Return
+
 	UseConset()
 	Sleep(500)
 	Local $l_i_After = _Vanquisher_CountConsetEffects()
-	If $l_i_After <= $l_i_Before Then
-		If Not FindConset() Then
-			CurrentAction("ConSets missing — need Essence, Armor, and Grail in bags 1–4.")
-		Else
-			CurrentAction("ConSet effects already active or items could not be used.")
+	$g_a_Vanquisher_ConsetLastUsed[0] = TimerInit()
+
+	If $l_i_After >= 3 Then
+		$g_b_Vanquisher_ConsetAppliedThisZone = True
+		If $l_i_After > $l_i_Before Then
+			CurrentAction("ConSets applied (" & $l_i_After & "/3 effects active).")
 		EndIf
-	Else
-		CurrentAction("ConSets applied (" & $l_i_After & "/3 effects active).")
+		Return
+	EndIf
+
+	If $l_i_After > $l_i_Before Then
+		CurrentAction("ConSets partially applied (" & $l_i_After & "/3 effects active).")
+	ElseIf $a_b_Force And $l_i_Before = 0 And Not FindConset() Then
+		CurrentAction("ConSets missing — need Essence, Armor, and Grail in bags 1–4.")
 	EndIf
 EndFunc
 
@@ -480,8 +493,6 @@ Func AggroMoveTo($x, $y, $s = "", $z = 1450)
 	$random = 50
 	$iBlocked = 0
 	$boolOpenChests = _IsOpenChestsEnabled()
-
-	If Not $g_b_Vanquisher_TransitOnly Then _Vanquisher_ApplyConsumables(True)
 
 	Move($x, $y, $random)
 

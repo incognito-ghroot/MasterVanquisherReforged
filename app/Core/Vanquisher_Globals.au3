@@ -126,6 +126,7 @@ Global $g_h_Vanquisher_StoneTimer = 0
 Global $g_a_Vanquisher_BULastUsed[7]
 Global $g_a_Vanquisher_BUUsedThisZone[7]
 Global $g_a_Vanquisher_ConsetLastUsed[3]
+Global $g_b_Vanquisher_ConsetAppliedThisZone = False
 
 Global $g_h_EditText = 0
 

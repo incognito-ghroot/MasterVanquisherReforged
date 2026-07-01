@@ -674,6 +674,7 @@ Func _Vanquisher_RefreshVanquishBaseline()
     $g_i_TearsRoute_LastMapHandled = -1
     $g_i_StingrayRoute_LastMapHandled = -1
     $g_h_Vanquisher_ConsumablePollTimer = 0
+    $g_b_Vanquisher_ConsetAppliedThisZone = False
     For $l_i_Idx = 0 To 6
         $g_a_Vanquisher_BULastUsed[$l_i_Idx] = 0
         $g_a_Vanquisher_BUUsedThisZone[$l_i_Idx] = False
