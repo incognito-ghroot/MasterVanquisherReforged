@@ -22,8 +22,6 @@ Originally based on the work of the GWA2 community, many maps and systems have b
 * ✔ Chest Opening
 * ✔ Kurzick/Luxon Faction Donation
 * ✔ Loot Collection
-* ✔ Hero Support
-* ✔ Rendering Toggle
 * ✔ Travel and Map Handling
 
 ---
@@ -39,13 +37,34 @@ Originally based on the work of the GWA2 community, many maps and systems have b
 * GWToolbox++ (Optional)
 
 ## Linux
-[Master Vanquisher Reforged - Linux/Wine Edition](https://github.com/incognito-ghroot/MasterVanquisherReforged-Lin)
 
 Linux Operation:
-* Launch: ./run_vanquisher.sh
-* Log fully in-game on your character (not login screen or character select)
-* Click Refresh — your real character name should appear (not "Reforged")
-* If "Reforged" appears, click "Attach"
+ ### Install Required Packages
+
+```bash
+sudo dpkg --add-architecture i386
+sudo apt update
+
+sudo apt install -y \
+    wine \
+    wine32 \
+    winetricks \
+    cabextract \
+    wget \
+    curl \
+    unzip \
+    p7zip-full \
+    git
+```
+
+### Install Recommended Wine Components
+
+```bash
+winetricks corefonts
+winetricks vcrun2022
+winetricks d3dx9
+```
+
 
 ---
 
@@ -58,6 +77,22 @@ git clone https://github.com/incognito-ghroot/MasterVanquisherReforged.git
 ```
 
 Or download the ZIP and extract it.
+
+### Verify Your Installation
+
+```bash
+wine --version
+winetricks --version
+```
+
+Expected output should show:
+
+```
+wine-10.x
+20xxxxxx-next
+```
+
+If both commands return version information without errors, your Wine environment is ready for Guild Wars and AutoIt.
 
 ## Required Setup
 
