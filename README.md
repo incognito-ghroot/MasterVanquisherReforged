@@ -110,20 +110,7 @@ Download links:
 
 - **AutoIt Official Website:** [AutoIt Downloads](https://www.autoitscript.com/site/autoit/)
 
-  GwAu3/
-  └── Scripts/
-  └── Master Vanquisher Reforged/ <------ Click MasterVanquisherReforged.au3
-  ├── app/
-  ├── Fighting/
-  ├── GUI/
-  ├── Maps/
-  ├── Moving/
-  ├── Resources/
-  ├── Hero.ini
-  ├── MasterVanquisher.au3
-  ├── Vanquisher_Globals.au3 └── ...
 ```
-
 # Combat System
 
 The Fight toggle has been removed from the GUI.
